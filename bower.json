@@ -5,7 +5,11 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "iron-ajax": "PolymerElements/iron-ajax",
-    "vaadin-grid": "vaadin/vaadin-grid#^5.0.0-beta6"
+    "vaadin-grid": "vaadin/vaadin-grid#^5.0.0-beta6",
+    "paper-tabs": "PolymerElements/paper-tabs",
+    "neon-animation": "PolymerElements/neon-animation",
+    "paper-item": "PolymerElements/paper-item",
+    "paper-listbox": "PolymerElements/paper-listbox"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",

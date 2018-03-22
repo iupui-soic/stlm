@@ -1,0 +1,95 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+
+
+
+<dom-module id="stlm-navbar">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+            paper-menu-button{
+                colour: red;
+            }
+            paper-tab {
+                color: black;
+                background: #81D4FA
+            }
+            paper-tab.iron-selected {
+
+                background-color: #E1F5FE;
+            }
+        </style>
+
+        <paper-tabs>
+            <paper-tab>Course
+                <select>
+
+                    <option>HIM M200</option>
+                    <option>HIM M220</option>
+                </select>
+            </paper-tab>
+            <paper-tab>SQL</paper-tab>
+
+            <paper-tab>Statistical Analysis</paper-tab>
+            <paper-tab>Submission
+                <select>
+
+                    <option>Upload File(word,pdf,xml)</option>
+                    <option>Spreadsheet</option>
+                    <option>DFD</option>
+
+                </select>
+            </paper-tab>
+            <paper-tab>Assignment
+                <select>
+
+                    <option>Assignment Number 1</option>
+                    <paper-listbox slot="dropdown-content" selected="1">
+                        <paper-item>Question1</paper-item>
+                        <paper-item>Question2</paper-item>
+                        <paper-item>Question3</paper-item>
+                        <paper-item>Question4</paper-item>
+                    </paper-listbox>
+                    <option>Assignment Number 2</option>
+
+                    <option>Assignment Number 3</option>
+                    <option>Assignment Number 4</option>
+                    <option>Assignment Number 5</option>
+                    <option>Assignment Number 6</option>
+
+                </select>
+            </paper-tab>
+        </paper-tabs>
+
+    </template>
+
+    <script>
+        /**
+         * `stlm-navbar`
+         * project
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class StlmNavbar extends Polymer.Element {
+            static get is() { return 'stlm-navbar'; }
+            static get properties() {
+                return {
+                    prop1: {
+                        type: String,
+                        value: 'stlm-navbar'
+                    }
+                };
+            }
+        }
+
+        window.customElements.define(StlmNavbar.is, StlmNavbar);
+    </script>
+</dom-module>
