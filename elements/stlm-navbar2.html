@@ -1,0 +1,46 @@
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html">
+
+
+
+<dom-module id="stlm-navbar2">
+    <template>
+        <paper-toolbar>
+            <paper-menu-button>
+              <paper-icon-button icon="menu" slot="dropdown-trigger"></paper-icon-button>
+              <paper-listbox slot="dropdown-content">
+                <paper-item>Share</paper-item>
+                <paper-item>Settings</paper-item>
+                <paper-item>Help</paper-item>
+              </paper-listbox>
+            </paper-menu-button>
+            <div style="width:20%">Statistical Analysis</div>
+            <paper-icon-button icon="social:poll" slot="top"></paper-icon-button>
+            <paper-icon-button icon="add" slot="top">+</paper-icon-button>
+            <paper-icon-button icon="refresh" slot="top"></paper-icon-button>
+            <paper-icon-button icon="add" slot="top">+</paper-icon-button>
+
+        </paper-toolbar>
+    </template>
+    <script>
+        /**
+         * `stlm-navbar`
+         * project
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class StlmNavbar extends Polymer.Element {
+            static get is() { return 'stlm-navbar2'; }
+        }
+        window.customElements.define(StlmNavbar.is, StlmNavbar);
+    </script>
+</dom-module>
