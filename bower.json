@@ -12,8 +12,9 @@
     "paper-listbox": "PolymerElements/paper-listbox",
     "paper-item": "PolymerElements/paper-item",
     "paper-menu-button": "PolymerElements/paper-menu-button",
-    "neon-animation": "PolymerElements/neon-animation"
-
+    "neon-animation": "PolymerElements/neon-animation",
+    "web-animations-js": "web-animations/web-animations-js",
+    "paper-button": "PolymerElements/paper-button"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
