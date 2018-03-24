@@ -17,18 +17,34 @@
             }
         </style>
         <paper-toolbar>
-            <paper-menu-button slot="top">
-                <paper-button slot="dropdown-trigger">Menu&nbsp;<iron-icon icon="menu"></iron-icon></paper-button>
+            <paper-menu-button slot="top" style="width:20%">
+                <paper-button  slot="dropdown-trigger">Course&nbsp;<iron-icon icon="chrome-reader-mode"></iron-icon></paper-button>
                 <paper-listbox slot="dropdown-content">
-                    <paper-item>Share</paper-item>
-                    <paper-item>Settings</paper-item>
-                    <paper-item>Help</paper-item>
+                    <paper-item>HIM M200</paper-item>
+                    <paper-item>HIM M220</paper-item>
                 </paper-listbox>
             </paper-menu-button>
             <paper-button style="width:20%" slot="top">Statistical Analysis&nbsp;<iron-icon icon="social:poll"></iron-icon></paper-button>
-            <paper-icon-button style="width:20%" icon="add" slot="top">+</paper-icon-button>
-            <paper-icon-button style="width:20%" icon="refresh" slot="top"></paper-icon-button>
-            <paper-icon-button style="width:20%" icon="add" slot="top">+</paper-icon-button>
+            <paper-button style="width:20%" slot="top">SQL&nbsp;<iron-icon icon="sort"></iron-icon></paper-button>
+            <paper-menu-button slot="top" style="width:20%">
+                <paper-button  slot="dropdown-trigger">Submission&nbsp;<iron-icon icon="assignment-turned-in"></iron-icon></paper-button>
+                <paper-listbox slot="dropdown-content">
+                    <paper-item>Files(word,pdf,ppt,excel)</paper-item>
+                    <paper-item>Spreadsheet</paper-item>
+                    <paper-item>Data Flow Diagram</paper-item>
+                </paper-listbox>
+            </paper-menu-button>
+            <paper-menu-button slot="top" style="width:20%">
+                <paper-button  slot="dropdown-trigger">Assignment&nbsp;<iron-icon icon="assignment"></iron-icon></paper-button>
+                <paper-listbox slot="dropdown-content">
+                    <paper-item>Assignment1</paper-item>
+                    <paper-item>Assignment2</paper-item>
+                    <paper-item>Assignment3</paper-item>
+                    <paper-item>Assignment4</paper-item>
+                    <paper-item>Assignment5</paper-item>
+                    <paper-item>Assignment6</paper-item>
+                </paper-listbox>
+            </paper-menu-button>
         </paper-toolbar>
     </template>
     <script>
