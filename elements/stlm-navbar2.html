@@ -3,8 +3,10 @@
 <link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-demo-helpers/demo-pages-shared-styles.html">
 <script src="../bower_components/web-animations-js/web-animations-next-lite.min.js"></script>
@@ -37,10 +39,24 @@
             <paper-menu-button slot="top" style="width:20%">
                 <paper-button  slot="dropdown-trigger">Assignment&nbsp;<iron-icon icon="assignment"></iron-icon></paper-button>
                 <paper-listbox slot="dropdown-content">
-                    <paper-item>Assignment1</paper-item>
+                    <paper-collapse-item>Assignment1
+                        <paper-collapse-item-content>
+                            <paper-item>Question1
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question2
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question3
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question4
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                        </paper-collapse-item-content>
+                    </paper-collapse-item>
                     <paper-item>Assignment2</paper-item>
                     <paper-item>Assignment3</paper-item>
-                    <paper-item>Assignment4</paper-item>
                     <paper-item>Assignment5</paper-item>
                     <paper-item>Assignment6</paper-item>
                 </paper-listbox>
