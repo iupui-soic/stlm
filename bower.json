@@ -17,7 +17,11 @@
     "paper-button": "PolymerElements/paper-button",
     "iron-collapse": "PolymerElements/iron-collapse",
     "iron-collapse-button": "jifalops/iron-collapse-button",
-    "paper-collapse-item": "Collaborne/paper-collapse-item"
+    "paper-collapse-item": "Collaborne/paper-collapse-item",
+    "paper-dialog": "PolymerElements/paper-dialog#^2.0.0"
+
+
+
 
 
   },
