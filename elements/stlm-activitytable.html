@@ -16,14 +16,7 @@
                 <template class="header">
                     <vaadin-grid-sorter path="firstName">First Name</vaadin-grid-sorter>
                 </template>
-                <template>[[item.firstName]]</template>
-            </vaadin-grid-column>
-
-            <vaadin-grid-column width="9em">
-                <template class="header">
-                    <vaadin-grid-sorter path="lastName">Last Name</vaadin-grid-sorter>
-                </template>
-                <template>[[item.lastName]]</template>
+                <template><a href="http://google.com">[[item.firstName]] [[item.lastName]]</a></template>
             </vaadin-grid-column>
 
             <vaadin-grid-column width="15em" flex-grow="2">
