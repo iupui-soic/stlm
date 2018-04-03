@@ -1,6 +1,17 @@
 <dom-module id="stlm-annotation">
     <template>
-
+        <script src="../bower_components/contextMenu/contextMenu.js" type="text/javascript"></script>
+        <div id="selectableArea">
+            Systolic blood pressure
+        Synonyms
+        SBP
+        SYSTOLIC
+        Search Terms
+        Short Name	SBP
+        Description	A patient's systolic blood pressure measurement (taken with a manual cuff in either a sitting or standing position)
+        Class	Finding
+        Datatype	Numeric
+        </div>
     </template>
 
     <script>
@@ -9,8 +20,32 @@
                 return "stlm-annotation";
             }
         }
-
         customElements.define(StlmAnnotation.is, StlmAnnotation);
+
+        var menu = [{
+            name: 'create',
+            img: 'images/create.png',
+            title: 'create button',
+            fun: function () {
+                alert('i am add button')
+            }
+        }, {
+            name: 'update',
+            img: 'images/update.png',
+            title: 'update button',
+            fun: function () {
+                alert('i am update button')
+            }
+        }, {
+            name: 'delete',
+            img: 'images/delete.png',
+            title: 'delete button',
+            fun: function () {
+                alert('i am delete button')
+            }
+        }];
+
+        $('#selectableArea').contextMenu(menu);
     </script>
 
 </dom-module>
