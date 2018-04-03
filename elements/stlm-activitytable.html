@@ -19,11 +19,54 @@
                 <template><a href="http://google.com">[[item.firstName]] [[item.lastName]]</a></template>
             </vaadin-grid-column>
 
+            <vaadin-grid-column width="9em">
+                <template class="header">
+                    <vaadin-grid-sorter path="Username">Username</vaadin-grid-sorter>
+                </template>
+                <template>[[item.Username]]</template>
+            </vaadin-grid-column>
+
             <vaadin-grid-column width="15em" flex-grow="2">
                 <template class="header">
-                    <vaadin-grid-sorter path="address.street">Address</vaadin-grid-sorter>
+                    <vaadin-grid-sorter path="Course Name">Course Name</vaadin-grid-sorter>
                 </template>
-                <template>[[item.address.street]], [[item.address.city]]</template>
+                <template>[[item.Course Name]], [[item.Course Name]]</template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column width="15em" flex-grow="2">
+                <template class="header">
+                    <vaadin-grid-sorter path="Role">Role</vaadin-grid-sorter>
+                </template>
+                <template>[[item.Role]], [[item.Role]]</template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column width="15em" flex-grow="2">
+                <template class="header">
+                    <vaadin-grid-sorter path="Last date logged in">Last date logged in</vaadin-grid-sorter>
+                </template>
+                <template>[[item.Last date logged in]], [[item.Last date logged in]]</template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column width="15em" flex-grow="2">
+                <template class="header">
+                    <vaadin-grid-sorter path="Last assignment submission date">Last assignment submission date </vaadin-grid-sorter>
+                </template>
+                <template>[[item.Last assignment submission date]], [[item.Last assignment submission date]]</template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column width="15em" flex-grow="2">
+                <template class="header">
+                    <vaadin-grid-sorter path="Activity status">Activity status </vaadin-grid-sorter>
+                </template>
+                <template>[[item.Activity status]], [[item.Activity status]]</template>
+            </vaadin-grid-column>
+
+
+            <vaadin-grid-column width="15em" flex-grow="2">
+                <template class="header">
+                    <vaadin-grid-sorter path="Progress report">Progress report </vaadin-grid-sorter>
+                </template>
+                <template>[[item.Progress report]], [[item.Progress report]]</template>
             </vaadin-grid-column>
 
         </vaadin-grid>
@@ -43,3 +86,24 @@
     </script>
 
 </dom-module>
+
+<vaadin-chart id="mychart"></vaadin-chart>
+<vaadin-chart>
+initChartWithJSJSONApi() {
+this.$.mychart.update({
+title: {
+text: 'The chart title'
+},
+subtitle: {
+text: 'Subtitle'
+},
+xAxis: {
+categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+},
+series: [{
+type: 'column',
+data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+}]
+});
+}
+</vaadin-chart>
