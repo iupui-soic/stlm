@@ -25,20 +25,12 @@
         </style>
         <paper-toolbar>
             <paper-menu-button slot="top" style="width:20%">
-                <paper-button slot="dropdown-trigger">Course&nbsp;<iron-icon icon="chrome-reader-mode"></iron-icon>
-                </paper-button>
-                <paper-listbox slot="dropdown-content" selected="{{selectedSuggestionId}}" attr-for-selected="myid">
-                    <paper-item>[[suggestion.name]]HIM M200</paper-item>
-                    <paper-item myid="[[suggestion.id]]">[[suggestion.name]]HIM M220</paper-item>
-                    <paper-button slot="dropdown-trigger">[[selectedCourseName]]
-                        <iron-icon icon="chrome-reader-mode"></iron-icon>
-                    </paper-button>
-                    <paper-listbox slot="dropdown-content" selected="{{selectedCourseName}}"
-                                   attr-for-selected="courseName">
-                        <template is="dom-repeat" items="[[suggestions]]" as="suggestion">
-                            <paper-item courseName="[[suggestion.id]]">[[suggestion.name]]</paper-item>
-                        </template>
-                    </paper-listbox>
+                <paper-button  slot="dropdown-trigger">[[selectedCourseName]]<iron-icon icon="chrome-reader-mode"></iron-icon></paper-button>
+                <paper-listbox slot="dropdown-content" selected="{{selectedCourseName}}" attr-for-selected="coursename">
+                    <template is="dom-repeat" items="[[suggestions]]" as="suggestion">
+                        <paper-item coursename="[[suggestion.name]]">[[suggestion.name]]</paper-item>
+                    </template>
+                </paper-listbox>
             </paper-menu-button>
             <paper-button style="width:20%" slot="top">Statistical Analysis&nbsp;<iron-icon
                     icon="social:poll"></iron-icon>
