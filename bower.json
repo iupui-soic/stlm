@@ -19,7 +19,8 @@
     "iron-collapse-button": "jifalops/iron-collapse-button",
     "paper-collapse-item": "Collaborne/paper-collapse-item",
     "paper-dialog": "PolymerElements/paper-dialog#^2.0.0",
-    "juicy-ace-editor": "Juicy/juicy-ace-editor"
+    "juicy-ace-editor": "Juicy/juicy-ace-editor",
+    "vaadin-upload": "vaadin/vaadin-upload"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
