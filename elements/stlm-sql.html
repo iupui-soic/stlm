@@ -1,38 +1,58 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/juicy-ace-editor/juicy-ace-editor.html">
 
 <dom-module id="stlm-sql">
     <template>
-        <div class="half left cf" align="left">
-            <ul class="tree">
-                <li>
-                    <input type="checkbox" id="c5"/>
-                    <label class="tree_label" for="c5">Database</label>
-                    <ul>
+        <table style="width: 100%">
+            <tr>
+                <td style="width:20%;">
+                    <ul class="tree">
                         <li>
-                            <input type="checkbox" id="c6"/>
-                            <label for="c6" class="tree_label">Table 1</label>
+                            <input type="checkbox" id="c1"/>
+                            <label class="tree_label" for="c1">Database</label>
                             <ul>
-                                <li><span class="tree_label">Column 1</span></li>
-                                <li><span class="tree_label">Column 2</span></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="c7"/>
-                            <label for="c7" class="tree_label">Table 2</label>
-                            <ul>
-                                <li><span class="tree_label">Column 1</span></li>
-                                <li><span class="tree_label">Column 2</span></li>
-
+                                <li>
+                                    <input type="checkbox" id="c2"/>
+                                    <label for="c2" class="tree_label">Table 1</label>
+                                    <ul>
+                                        <li><span class="tree_label">Column 1</span></li>
+                                        <li><span class="tree_label">Column 2</span></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="c3"/>
+                                    <label for="c3" class="tree_label">Table 2</label>
+                                    <ul>
+                                        <li><span class="tree_label">Column 1</span></li>
+                                        <li><span class="tree_label">Column 2</span></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="c4"/>
+                                    <label for="c4" class="tree_label">Table 2</label>
+                                    <ul>
+                                        <li><span class="tree_label">Column 1</span></li>
+                                        <li><span class="tree_label">Column 2</span></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="c5"/>
+                                    <label for="c5" class="tree_label">Table 2</label>
+                                    <ul>
+                                        <li><span class="tree_label">Column 1</span></li>
+                                        <li><span class="tree_label">Column 2</span></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                     </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="half right cf">
-            <textarea name="message" type="text" id="input-message" placeholder="Enter SQL Query"></textarea>
-        </div>
-        <input type="submit" value="Submit" id="input-submit">
+                </td>
+                <td style="width:80%" valign="top">
+                    <juicy-ace-editor style="height: 300px" mode="ace/mode/sql"></juicy-ace-editor>
+                    <div style="text-align: right"><input  type="submit" value="Execute SQL"></div>
+                </td>
+            </tr>
+        </table>
 
         <style>
             /* ————————————————————–
@@ -168,15 +188,6 @@
                 padding: 1em;
                 border-radius: 0.3em;
             }
-
-            *,
-            *:before,
-            *:after {
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-            }
-
         </style>
     </template>
 
