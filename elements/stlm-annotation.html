@@ -1,0 +1,91 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="stlm-annotation">
+    <template>
+        <link rel="stylesheet" href="bower_components/menufy/menufy.min.css">
+        <script src="bower_components/menufy/menufy.min.js" type="text/javascript"></script>
+        <div id="selectableArea">
+            Systolic blood pressure <br/>
+            Synonyms <br/>
+            SBP <br/>
+            SYSTOLIC <br/>
+            Search Terms <br/>
+            Short Name SBP <br/>
+            Description A patient's systolic blood pressure measurement (taken with a manual cuff in either a sitting or <br/>
+            standing position)<br/>
+            Class Finding<br/>
+            Datatype Numeric<br/>
+        </div>
+
+        <div id="contextMenu">
+            <ul>
+                <li><a href="#">Annotate</a></li>
+            </ul>
+        </div>
+
+        <style>
+            #contextMenu {
+                position: absolute;
+                display: none;
+            }
+
+            #contextMenu ul, #context-menu li {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+
+            #contextMenu {
+                border: solid 1px #CCC;
+            }
+
+            #contextMenu li {
+                border-bottom: solid 1px #CCC;
+            }
+
+            #contextMenu li:last-child {
+                border: none;
+            }
+
+            #contextMenu li a {
+                display: block;
+                padding: 5px 10px;
+                text-decoration: none;
+                color: blue;
+            }
+
+            #contextMenu li a:hover {
+                background: blue;
+                color: #FFF;
+            }
+        </style>
+    </template>
+
+    <script>
+        class StlmAnnotation extends Polymer.Element {
+            static get is() {
+                return "stlm-annotation";
+            }
+            ready() {
+                super.ready();
+                var menuArea = this.$.selectableArea;
+                var menu = this.$.contextMenu;
+
+                menuArea.oncontextmenu = function (e) {
+                    var text = window.getSelection().toString();
+                    console.log(text);
+                    if(text.length > 10) {
+                        e.preventDefault();
+                        menu.style.left = e.pageX + 'px';
+                        menu.style.top = e.pageY + 'px';
+                        menu.style.display = 'block';
+                    }
+                }
+            }
+        }
+
+        customElements.define(StlmAnnotation.is, StlmAnnotation);
+    </script>
+
+</dom-module>

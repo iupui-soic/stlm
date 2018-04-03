@@ -9,10 +9,6 @@
 <link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-demo-helpers/demo-pages-shared-styles.html">
-<link rel="import" href="../bower_components/vaadin-upload/vaadin-upload.html">
-<link rel="import" href="../bower_components/paper-collapse-item/paper-collapse-item.html">
-<link rel="import" href="../bower_components/paper-collapse-item/paper-collapse-group.html">
-
 <link rel="import" href="simple-dialog.html">
 
 <script src="../bower_components/web-animations-js/web-animations-next-lite.min.js"></script>
@@ -25,23 +21,17 @@
         </style>
         <paper-toolbar>
             <paper-menu-button slot="top" style="width:20%">
-                <paper-button slot="dropdown-trigger">Course&nbsp;<iron-icon icon="chrome-reader-mode"></iron-icon>
-                </paper-button>
-
-                <paper-listbox slot="dropdown-content" selected="{{selectedSuggestionId}}" attr-for-selected="myid">
-                    <paper-item>[[suggestion.name]]HIM M200</paper-item>
-                    <paper-item myid="[[suggestion.id]]">[[suggestion.name]]HIM M220</paper-item>
+                <paper-button  slot="dropdown-trigger">[[selectedCourseName]]<iron-icon icon="chrome-reader-mode"></iron-icon></paper-button>
+                <paper-listbox slot="dropdown-content" selected="{{selectedCourseName}}" attr-for-selected="courseName">
+                    <template is="dom-repeat" items="[[suggestions]]" as="suggestion">
+                        <paper-item courseName="[[suggestion.id]]">[[suggestion.name]]</paper-item>
+                    </template>
                 </paper-listbox>
             </paper-menu-button>
-            <paper-button style="width:20%" slot="top">Statistical Analysis&nbsp;<iron-icon
-                    icon="social:poll"></iron-icon>
-            </paper-button>
-            <paper-button style="width:20%" slot="top">SQL&nbsp;<iron-icon icon="sort"></iron-icon>
-            </paper-button>
+            <paper-button style="width:20%" slot="top">Statistical Analysis&nbsp;<iron-icon icon="social:poll"></iron-icon></paper-button>
+            <paper-button style="width:20%" slot="top">SQL&nbsp;<iron-icon icon="sort"></iron-icon></paper-button>
             <paper-menu-button slot="top" style="width:20%">
-                <paper-button slot="dropdown-trigger">Submission&nbsp;<iron-icon
-                        icon="assignment-turned-in"></iron-icon>
-                </paper-button>
+                <paper-button  slot="dropdown-trigger">Submission&nbsp;<iron-icon icon="assignment-turned-in"></iron-icon></paper-button>
                 <paper-listbox slot="dropdown-content">
                     <paper-item>Files(word,pdf,ppt,excel)</paper-item>
                     <paper-item>Spreadsheet</paper-item>
@@ -52,10 +42,24 @@
                 </paper-listbox>
             </paper-menu-button>
             <paper-menu-button slot="top" style="width:20%">
-                <paper-button slot="dropdown-trigger">Assignment&nbsp;<iron-icon icon="assignment"></iron-icon>
-                </paper-button>
+                <paper-button  slot="dropdown-trigger">Assignment&nbsp;<iron-icon icon="assignment"></iron-icon></paper-button>
                 <paper-listbox slot="dropdown-content">
-                    <paper-item>Assignment1</paper-item>
+                    <paper-collapse-item>Assignment1
+                        <paper-collapse-item-content>
+                            <paper-item>Question1
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question2
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question3
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question4
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                        </paper-collapse-item-content>
+                    </paper-collapse-item>
                     <paper-item>Assignment2</paper-item>
                     <paper-item>Assignment3</paper-item>
                     <paper-item>Assignment5</paper-item>
@@ -66,49 +70,8 @@
 
         <simple-dialog id="dialog">
             <h2>Please upload your files here</h2>
-            <vaadin-upload target="serverUrl" method="POST" timeout="300000" headers="{'X-Custom-Header': 'value'}"
-                           form-data-name="my-attachment">
-                <iron-icon slot="drop-label-icon" icon="description"></iron-icon>
-                <span slot="drop-label">Drop your files here</span>
-            </vaadin-upload>
             <paper-button dialog-dismiss>Cancel</paper-button>
             <paper-button dialog-confirm autofocus>submit</paper-button>
-            <script src="https://cdn.vaadin.com/vaadin-elements/master/mock-http-request/lib/mock.js"></script>
-            <script>
-                function mockXhrGenerator(file) {
-                    var xhr = new MockHttpRequest();
-                    xhr.upload = {};
-                    xhr.onsend = function () {
-                        var total = file && file.size || 1024, done = 0;
-
-                        function start() {
-                            setTimeout(progress, 1000);
-                        }
-
-                        function progress() {
-                            xhr.upload.onprogress({total: total, loaded: done});
-                            if (done < total) {
-                                setTimeout(progress, 200);
-                                done = Math.min(total, done + 254000);
-                            } else if (!file.abort) {
-                                setTimeout(finish, 1000);
-                            }
-                        }
-
-                        function finish() {
-                            xhr.receive(200, '{"message":"OK"}');
-                        }
-
-                        start();
-                    };
-                    return xhr;
-                }
-
-                window.addEventListener('WebComponentsReady', function () {
-                    // Monkey-patch vaadin-upload prototype to use MockHttpRequest
-                    Object.getPrototypeOf(document.createElement('vaadin-upload'))._createXhr = mockXhrGenerator;
-                });
-            </script>
         </simple-dialog>
 
     </template>
@@ -117,13 +80,14 @@
             static get is() {
                 return 'stlm-navbar3';
             }
-
-            toggleDialog() {
+            toggleDialog(){
                 this.$.dialog.open();
             }
-
+            constructor() {
+                super();
+                this.suggestions = [{"id": "1", "name": "HIM M200"}, {"id": "2", "name": "HIM M220"}];
+            }
         }
-
         window.customElements.define(StlmNavbar3.is, StlmNavbar3);
     </script>
 </dom-module>
