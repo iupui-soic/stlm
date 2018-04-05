@@ -49,14 +49,104 @@
                 </paper-listbox>
             </paper-menu-button>
             <paper-menu-button slot="top" style="width:20%">
-                <paper-button slot="dropdown-trigger">Assignment&nbsp;<iron-icon icon="assignment"></iron-icon>
-                </paper-button>
+                <paper-button  slot="dropdown-trigger">Assignment&nbsp;<iron-icon icon="assignment"></iron-icon></paper-button>
                 <paper-listbox slot="dropdown-content">
-                    <paper-item>Assignment1</paper-item>
-                    <paper-item>Assignment2</paper-item>
-                    <paper-item>Assignment3</paper-item>
-                    <paper-item>Assignment5</paper-item>
-                    <paper-item>Assignment6</paper-item>
+                    <paper-collapse-item header="Assignment1">
+                        <paper-collapse-item-content>
+                            <paper-item>Question1
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question2
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question3
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question4
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                        </paper-collapse-item-content>
+                    </paper-collapse-item>
+                    <paper-collapse-item header="Assignment2">
+                        <paper-collapse-item-content>
+                            <paper-item>Question1
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question2
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question3
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question4
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                        </paper-collapse-item-content>
+                    </paper-collapse-item>
+                    <paper-collapse-item header="Assignment3">
+                        <paper-collapse-item-content>
+                            <paper-item>Question1
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question2
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question3
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question4
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                        </paper-collapse-item-content>
+                    </paper-collapse-item>
+                    <paper-collapse-item header="Assignment4">
+                        <paper-collapse-item-content>
+                            <paper-item>Question1
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question2
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question3
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question4
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                        </paper-collapse-item-content>
+                    </paper-collapse-item>
+                    <paper-collapse-item header="Assignment5">
+                        <paper-collapse-item-content>
+                            <paper-item>Question1
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question2
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question3
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question4
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                        </paper-collapse-item-content>
+                    </paper-collapse-item>
+                    <paper-collapse-item header="Assignment6">
+                        <paper-collapse-item-content>
+                            <paper-item>Question1
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question2
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question3
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                            <paper-item>Question4
+                                <paper-button raised class="green">Start</paper-button>
+                            </paper-item>
+                        </paper-collapse-item-content>
+                    </paper-collapse-item>
                 </paper-listbox>
             </paper-menu-button>
         </paper-toolbar>
@@ -77,11 +167,9 @@
                     xhr.upload = {};
                     xhr.onsend = function () {
                         var total = file && file.size || 1024, done = 0;
-
                         function start() {
                             setTimeout(progress, 1000);
                         }
-
                         function progress() {
                             xhr.upload.onprogress({total: total, loaded: done});
                             if (done < total) {
@@ -91,16 +179,13 @@
                                 setTimeout(finish, 1000);
                             }
                         }
-
                         function finish() {
                             xhr.receive(200, '{"message":"OK"}');
                         }
-
                         start();
                     };
                     return xhr;
                 }
-
                 window.addEventListener('WebComponentsReady', function () {
                     // Monkey-patch vaadin-upload prototype to use MockHttpRequest
                     Object.getPrototypeOf(document.createElement('vaadin-upload'))._createXhr = mockXhrGenerator;
