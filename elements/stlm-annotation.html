@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <dom-module id="stlm-annotation">
     <template>
@@ -9,7 +10,8 @@
             SYSTOLIC <br/>
             Search Terms <br/>
             Short Name SBP <br/>
-            Description A patient's systolic blood pressure measurement (taken with a manual cuff in either a sitting or <br/>
+            Description A patient's systolic blood pressure measurement (taken with a manual cuff in either a sitting or
+            <br/>
             standing position)<br/>
             Class Finding<br/>
             Datatype Numeric<br/>
@@ -17,11 +19,19 @@
 
         <div id="contextMenu">
             <ul>
-                <a href="#"></a>
-                <li><input type="text"/><input type="button" value="Submit"></li>
-
+                <li id="annotateThis"></li>
+                <li><input id="annotationField" type="text"/><input type="button" onclick="saveAnnotation()"
+                                                                    value="Submit"></li>
             </ul>
         </div>
+
+        <script>
+            function saveAnnotation() {
+                var annotation = document.getElementById('annotateThis').innerHTML + ':'
+                    + document.getElementById('annotationField').value;
+                window.localStorage.setItem(now().toDateString(), annotation);
+            }
+        </script>
 
         <style>
             #contextMenu {
@@ -67,24 +77,27 @@
             static get is() {
                 return "stlm-annotation";
             }
+
             ready() {
                 super.ready();
                 var menuArea = this.$.selectableArea;
                 var menu = this.$.contextMenu;
+                var annotateThis = this.$.annotateThis;
+                var annotationField = this.$.annotationField;
 
                 menuArea.oncontextmenu = function (e) {
                     var text = window.getSelection().toString();
+                    annotateThis.innerHTML = text;
                     console.log(text);
-                    if(text.length > 0) {
+                    if (text.length > 0) {
+                        annotationField.value = '';
                         e.preventDefault();
                         menu.style.left = e.pageX + 'px';
                         menu.style.top = e.pageY + 'px';
                         menu.style.display = 'block';
-                    }else {
+                    } else {
                         menu.style.display = 'none';
                     }
-
-                    menuArea.onClick();
                 }
             }
         }
