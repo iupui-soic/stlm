@@ -9,13 +9,13 @@
                     <ul class="tree">
                         <li>
                             <input type="checkbox" id="c1"/>
-                            <label draggable="true" class="tree-label" for="c1">Database</label>
+                            <label class="tree-label" for="c1">Database</label>
                             <ul>
                                 <li>
                                     <input type="checkbox" id="c2"/>
                                     <label for="c2" class="tree-label">Table 1</label>
                                     <ul>
-                                        <li><span draggable="true" class="tree-label">Column 1</span></li>
+                                        <li><span class="tree-label">Column 1</span></li>
                                         <li><span class="tree-label">Column 2</span></li>
                                     </ul>
                                 </li>
@@ -56,21 +56,6 @@
 
         <script>
 
-            /* [].forEach.call(dragElements, function (element) {
-
-            element.addEventListener("dragstart", function (event) {
-                     //event.dataTransfer.setData("text/plain", event.target.id);
-                     console.log(event.target);
-                 });
-             });
-
-             document.addEventListener("drop", function (event) {
-                 event.preventDefault();
-                 if (event.target.id == "sqlarea") {
-                     var data = event.dataTransfer.getData("text/plain");
-                     event.target.appendChild(document.getElementById(data));
-                 }
-             });*/
         </script>
         <style>
             /* ————————————————————–
@@ -217,9 +202,13 @@
 
             ready() {
                 super.ready();
-                //var dragElements = document.getElementsByClassName('tree-label');
-                var dragElements = this.shadowRoot.querySelector('tree-label');
-                console.log(dragElements.length);
+                var dragElements = this.shadowRoot.querySelectorAll('.tree-label');
+                [].forEach.call(dragElements, function (element) {
+                    element.setAttribute('draggable', true);
+                    element.addEventListener("dragstart", function (event) {
+                        event.dataTransfer.setData("text/plain", event.target.innerHTML);
+                    });
+                });
             }
         }
 
