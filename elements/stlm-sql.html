@@ -9,38 +9,38 @@
                     <ul class="tree">
                         <li>
                             <input type="checkbox" id="c1"/>
-                            <label class="tree_label" for="c1">Database</label>
+                            <label draggable="true" class="tree-label" for="c1">Database</label>
                             <ul>
                                 <li>
                                     <input type="checkbox" id="c2"/>
-                                    <label for="c2" class="tree_label">Table 1</label>
+                                    <label for="c2" class="tree-label">Table 1</label>
                                     <ul>
-                                        <li><span class="tree_label">Column 1</span></li>
-                                        <li><span class="tree_label">Column 2</span></li>
+                                        <li><span draggable="true" class="tree-label">Column 1</span></li>
+                                        <li><span class="tree-label">Column 2</span></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <input type="checkbox" id="c3"/>
-                                    <label for="c3" class="tree_label">Table 2</label>
+                                    <label for="c3" class="tree-label">Table 2</label>
                                     <ul>
-                                        <li><span class="tree_label">Column 1</span></li>
-                                        <li><span class="tree_label">Column 2</span></li>
+                                        <li><span class="tree-label">Column 1</span></li>
+                                        <li><span class="tree-label">Column 2</span></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <input type="checkbox" id="c4"/>
-                                    <label for="c4" class="tree_label">Table 2</label>
+                                    <label for="c4" class="tree-label">Table 3</label>
                                     <ul>
-                                        <li><span class="tree_label">Column 1</span></li>
-                                        <li><span class="tree_label">Column 2</span></li>
+                                        <li><span class="tree-label">Column 1</span></li>
+                                        <li><span class="tree-label">Column 2</span></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <input type="checkbox" id="c5"/>
-                                    <label for="c5" class="tree_label">Table 2</label>
+                                    <label for="c5" class="tree-label">Table 4</label>
                                     <ul>
-                                        <li><span class="tree_label">Column 1</span></li>
-                                        <li><span class="tree_label">Column 2</span></li>
+                                        <li><span class="tree-label">Column 1</span></li>
+                                        <li><span class="tree-label">Column 2</span></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -48,12 +48,30 @@
                     </ul>
                 </td>
                 <td style="width:80%" valign="top">
-                    <juicy-ace-editor style="height: 300px" mode="ace/mode/sql"></juicy-ace-editor>
-                    <div style="text-align: right"><input  type="submit" value="Execute SQL"></div>
+                    <juicy-ace-editor id="sqlarea" style="height: 300px" mode="ace/mode/sql"></juicy-ace-editor>
+                    <div style="text-align: right"><input type="submit" value="Execute SQL"></div>
                 </td>
             </tr>
         </table>
 
+        <script>
+
+            /* [].forEach.call(dragElements, function (element) {
+
+            element.addEventListener("dragstart", function (event) {
+                     //event.dataTransfer.setData("text/plain", event.target.id);
+                     console.log(event.target);
+                 });
+             });
+
+             document.addEventListener("drop", function (event) {
+                 event.preventDefault();
+                 if (event.target.id == "sqlarea") {
+                     var data = event.dataTransfer.getData("text/plain");
+                     event.target.appendChild(document.getElementById(data));
+                 }
+             });*/
+        </script>
         <style>
             /* ————————————————————–
               Tree core styles
@@ -95,24 +113,24 @@
             /* ————————————————————–
               Tree labels
             */
-            .tree_label {
+            .tree-label {
                 position: relative;
                 display: inline-block;
                 background: #fff;
             }
 
-            label.tree_label {
+            label.tree-label {
                 cursor: pointer;
             }
 
-            label.tree_label:hover {
+            label.tree-label:hover {
                 color: #666;
             }
 
             /* ————————————————————–
               Tree expanded icon
             */
-            label.tree_label:before {
+            label.tree-label:before {
                 background: #000;
                 color: #fff;
                 position: relative;
@@ -127,7 +145,7 @@
                 line-height: .9em;
             }
 
-            :checked ~ label.tree_label:before {
+            :checked ~ label.tree-label:before {
                 content: '–';
             }
 
@@ -145,7 +163,7 @@
                 content: "";
             }
 
-            .tree_label:after {
+            .tree-label:after {
                 position: absolute;
                 top: 0;
                 left: -1.5em;
@@ -158,11 +176,11 @@
                 content: '';
             }
 
-            label.tree_label:after {
+            label.tree-label:after {
                 border-bottom: 0;
             }
 
-            :checked ~ label.tree_label:after {
+            :checked ~ label.tree-label:after {
                 border-radius: 0 .3em 0 0;
                 border-top: 1px solid #777;
                 border-right: 1px solid #777;
@@ -196,7 +214,15 @@
             static get is() {
                 return 'stlm-sql';
             }
+
+            ready() {
+                super.ready();
+                //var dragElements = document.getElementsByClassName('tree-label');
+                var dragElements = this.shadowRoot.querySelector('tree-label');
+                console.log(dragElements.length);
+            }
         }
+
         window.customElements.define(StlmSql.is, StlmSql);
     </script>
 </dom-module>
