@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../bower_components/iron-icons/av-icons.html">
 <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
@@ -21,6 +22,21 @@
         <style>
             :host {
                 display: block;
+            }
+            paper-button.green {
+                min-width: 30px;
+                height: 20px;
+                background-color: var(--paper-green-500);
+                color: white;
+            }
+            paper-button.indigo {
+                min-width: 30px;
+                height: 20px;
+                background-color: var(--paper-indigo-500);
+                color: white;
+            }
+            paper-button.green[active] {
+                background-color: var(--paper-red-500);
             }
         </style>
         <paper-toolbar>
@@ -42,7 +58,6 @@
                         icon="assignment-turned-in"></iron-icon>
                 </paper-button>
                 <paper-listbox slot="dropdown-content">
-                    <paper-item>Files(word,pdf,ppt,excel)</paper-item>
                     <paper-item>Spreadsheet</paper-item>
                     <paper-item>Data Flow Diagram</paper-item>
                     <paper-item on-tap="toggleDialog">Upload Files</paper-item>
@@ -50,107 +65,130 @@
             </paper-menu-button>
             <paper-menu-button slot="top" style="width:20%">
                 <paper-button  slot="dropdown-trigger">Assignment&nbsp;<iron-icon icon="assignment"></iron-icon></paper-button>
-                <paper-listbox slot="dropdown-content">
+                <paper-listbox slot="dropdown-content" style="width:300px">
                     <paper-collapse-item header="Assignment1">
                         <paper-collapse-item-content>
                             <paper-item>Question1
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button  toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question2
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question3
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo" on-click="disabled"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question4
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                         </paper-collapse-item-content>
                     </paper-collapse-item>
                     <paper-collapse-item header="Assignment2">
                         <paper-collapse-item-content>
                             <paper-item>Question1
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question2
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question3
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question4
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                         </paper-collapse-item-content>
                     </paper-collapse-item>
                     <paper-collapse-item header="Assignment3">
                         <paper-collapse-item-content>
                             <paper-item>Question1
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question2
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question3
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question4
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                         </paper-collapse-item-content>
                     </paper-collapse-item>
                     <paper-collapse-item header="Assignment4">
                         <paper-collapse-item-content>
                             <paper-item>Question1
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question2
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question3
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question4
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                         </paper-collapse-item-content>
                     </paper-collapse-item>
                     <paper-collapse-item header="Assignment5">
                         <paper-collapse-item-content>
                             <paper-item>Question1
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question2
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question3
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question4
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                         </paper-collapse-item-content>
                     </paper-collapse-item>
                     <paper-collapse-item header="Assignment6">
                         <paper-collapse-item-content>
                             <paper-item>Question1
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question2
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question3
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                             <paper-item>Question4
-                                <paper-button raised class="green">Start</paper-button>
+                                <paper-button toggles raised class="green"><iron-icon icon="av:fiber-manual-record"></iron-icon></paper-button>
+                                <paper-button raised class="indigo"><iron-icon icon="undo"></iron-icon></paper-button>
                             </paper-item>
                         </paper-collapse-item-content>
                     </paper-collapse-item>
                 </paper-listbox>
             </paper-menu-button>
         </paper-toolbar>
-
         <simple-dialog id="dialog">
             <h2>Please upload your files here</h2>
             <vaadin-upload target="serverUrl" method="POST" timeout="300000" headers="{'X-Custom-Header': 'value'}"
@@ -202,10 +240,12 @@
             toggleDialog() {
                 this.$.dialog.open();
             }
+
             constructor() {
                 super();
                 this.suggestions = [{"id": "1", "name": "HIM M200"}, {"id": "2", "name": "HIM M220"}];
             }
+            
         }
         window.customElements.define(StlmNavbar3.is, StlmNavbar3);
     </script>
