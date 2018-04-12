@@ -2,10 +2,8 @@
 
 
 <dom-module id="stlm-stat">
-
     <template>
         <style type="text/css">
-
             .grid {
                 border-spacing: 0px;
                 font-family: Arial;
@@ -43,13 +41,11 @@
 
         </style>
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
         <script>
             function initiate() {
                 $.ajax({
-                    url: exportToTable(),
-                    success: function () {
-                        applyStyle();
-                    }
+                    url: exportToTable()
                 });
             }
 
@@ -91,69 +87,42 @@
                         }
                         table += '</tbody>';
                         table += '</table>';
-                        $('#tablespace').empty();
-                        $('#tablespace').append(table);
-                        $('#applyBtn').prop('disabled', false);
-                        $('#clearBtn').prop('disabled', false);
+                        document.getElementsByTagName('stlm-stat')[0].shadowRoot.getElementById('tablespace').innerHTML = '';
+                        document.getElementsByTagName('stlm-stat')[0].shadowRoot.getElementById('tablespace').innerHTML = table;
                     }//onload
-                    console.log(this);
-                    reader.readAsText(this.shadowRoot.getElementById("#csvfile")[0].files[0]);
+                    reader.readAsText(document.getElementsByTagName('stlm-stat')[0].shadowRoot.getElementById('csvfile').files[0]);
                 }// html supported
                 else {
                     alert("Sorry! Your browser does not support HTML5!");
                 }
             }
 
-            function applyStyle() {
-                $("#sensorValues td:nth-child(2)").each(function () {
-                    var tmpThres = parseInt(($("#tempThreshold").val()));
-                    if (parseInt($(this).text(), 10) >= tmpThres) {
-                        $(this).css("color", "#ff4d4d");
-                    }
-                });
+            function doTest() {
+                // TODO: Fix two-sample t-test. Hardcoded sample below
+                // console.log(jStat.ttest(20, getTableData(1), 2));
+            }
 
-                $("#sensorValues td:nth-child(3)").each(function () {
-                    var humThres = parseInt(($("#humidThreshold").val()));
-                    if (parseInt($(this).text(), 10) >= humThres) {
-                        $(this).css("color", "#ff4d4d");
-                    }
+            function getTableData(columnNum) {
+                var table = document.getElementsByTagName('stlm-stat')[0].shadowRoot.getElementById('sensorValues');
+                var colArray = Array.prototype.map.call(table.querySelectorAll('tr'), function (row) {
+                    return parseInt(row.cells[columnNum].textContent);
                 });
-                $("#sensorValues td:nth-child(4)").each(function () {
-                    var humThres = parseInt(($("#snsr1Threshold").val()));
-                    if (parseInt($(this).text(), 10) <= snsr1Threshold) {
-                        $(this).css("color", "#ff4d4d");
-                    }
-                });
-                $("#sensorValues td:nth-child(5)").each(function () {
-                    var humThres = parseInt(($("#snsr1Threshold").val()));
-                    if (parseInt($(this).text(), 10) <= snsr2Threshold) {
-                        $(this).css("color", "#ff4d4d");
-                    }
-                });
+                return colArray;
             }
         </script>
         <h1>STATISTICAL ANALYSIS BY T-TEST</h1>
         <h2>Please Upload Your .csv File Here to Perform t-test</h2>
         <div id="inputgroup" class="inputs" height="100%">
-            <main>
-                <input type="file" id="csvfile"/>
-                <input type="button" id="viewfile" value="Submit"
-                       onclick="initiate()"/>
-                <br>
-                <br>
-                <div id="tablespace" style="width:50%;height:50%;overflow-y:scroll;overflow-x:scroll;overflow: auto; border:thin;
- border-color:#000000;
- border-style: outset;">
-                    <br>
-                </div>
-                <br>
-                <button type="submit">Perform T-Test</button>
-
-            </main>
+            <input type="file" id="csvfile"/>
+            <input type="button" id="viewfile" value="Submit" onclick="initiate()"/>
+            <br>
+            <br>
+            <div id="tablespace"
+                 style="width:200px;height:250px;overflow-y:scroll;overflow-x:scroll;overflow: auto; border:thin; border-color:#000000;border-style: outset;">
+            </div>
+            <br>
+            <button type="submit" onclick="doTest()">Perform T-Test</button>
         </div>
-        <br/>
-        <br/>
-
     </template>
 
     <script>
@@ -161,7 +130,6 @@
             static get is() {
                 return 'stlm-stat';
             }
-
         }
 
         window.customElements.define(StlmStat.is, StlmStat);
