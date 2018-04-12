@@ -1,0 +1,169 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+
+<dom-module id="stlm-stat">
+
+    <template>
+        <style type="text/css">
+
+            .grid {
+                border-spacing: 0px;
+                font-family: Arial;
+                font-size: 12px;
+                width: 100%;
+            }
+
+            .grid th {
+                background-color: #3A393C;
+                color: #fff;
+                padding: 2px 10px;
+                text-align: left;
+            }
+
+            .grid tr:nth-child(even) {
+                background-color: #f5f5f5;
+                border: 1px solid black;
+            }
+
+            .grid tr:nth-child(odd) {
+                background-color: #ccc;
+                border: 1px solid black;
+            }
+
+            .grid tr:hover {
+                background-color: #664b00;
+                color: #FFF;
+            }
+
+            .grid td {
+                padding: 2px 10px;
+                vertical-align: bottom;
+                border: 1px solid black;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script>
+            function initiate() {
+                $.ajax({
+                    url: exportToTable(),
+                    success: function () {
+                        applyStyle();
+                    }
+                });
+            }
+
+            function exportToTable() {
+                if (typeof (FileReader) != "undefined") {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var table = '<table id = "sensorValues" class ="grid">';
+                        var allRows = e.target.result.split(/\r?\n|\r/);
+                        for (var singleRow = 0; singleRow < allRows.length;
+                             singleRow++) {
+                            if (singleRow === 0) {
+                                table += '<thead>';
+                                table += '<tr>';
+                            } else {
+                                table += '<tr>';
+                            }
+                            var rowCells = allRows[singleRow].split(',');
+                            var infault = false;
+                            for (var rowCell = 0; rowCell < 2; rowCell++) {
+                                if (singleRow === 0) {
+                                    table += '<th>';
+                                    table += rowCells[rowCell];
+                                    table += '</th>';
+                                } else {
+                                    table += '<td>';
+                                    table += rowCells[rowCell];
+                                    table += '</td>';
+                                    var a = parseFloat(rowCells[rowCell]);
+                                }
+                            }
+                            if (singleRow === 0) {
+                                table += '</tr>';
+                                table += '</thead>';
+                                table += '<tbody>';
+                            } else {
+                                table += '</tr>';
+                            }
+                        }
+                        table += '</tbody>';
+                        table += '</table>';
+                        $('#tablespace').empty();
+                        $('#tablespace').append(table);
+                        $('#applyBtn').prop('disabled', false);
+                        $('#clearBtn').prop('disabled', false);
+                    }//onload
+                    console.log(this);
+                    reader.readAsText(this.shadowRoot.getElementById("#csvfile")[0].files[0]);
+                }// html supported
+                else {
+                    alert("Sorry! Your browser does not support HTML5!");
+                }
+            }
+
+            function applyStyle() {
+                $("#sensorValues td:nth-child(2)").each(function () {
+                    var tmpThres = parseInt(($("#tempThreshold").val()));
+                    if (parseInt($(this).text(), 10) >= tmpThres) {
+                        $(this).css("color", "#ff4d4d");
+                    }
+                });
+
+                $("#sensorValues td:nth-child(3)").each(function () {
+                    var humThres = parseInt(($("#humidThreshold").val()));
+                    if (parseInt($(this).text(), 10) >= humThres) {
+                        $(this).css("color", "#ff4d4d");
+                    }
+                });
+                $("#sensorValues td:nth-child(4)").each(function () {
+                    var humThres = parseInt(($("#snsr1Threshold").val()));
+                    if (parseInt($(this).text(), 10) <= snsr1Threshold) {
+                        $(this).css("color", "#ff4d4d");
+                    }
+                });
+                $("#sensorValues td:nth-child(5)").each(function () {
+                    var humThres = parseInt(($("#snsr1Threshold").val()));
+                    if (parseInt($(this).text(), 10) <= snsr2Threshold) {
+                        $(this).css("color", "#ff4d4d");
+                    }
+                });
+            }
+        </script>
+        <h1>STATISTICAL ANALYSIS BY T-TEST</h1>
+        <h2>Please Upload Your .csv File Here to Perform t-test</h2>
+        <div id="inputgroup" class="inputs" height="100%">
+            <main>
+                <input type="file" id="csvfile"/>
+                <input type="button" id="viewfile" value="Submit"
+                       onclick="initiate()"/>
+                <br>
+                <br>
+                <div id="tablespace" style="width:50%;height:50%;overflow-y:scroll;overflow-x:scroll;overflow: auto; border:thin;
+ border-color:#000000;
+ border-style: outset;">
+                    <br>
+                </div>
+                <br>
+                <button type="submit">Perform T-Test</button>
+
+            </main>
+        </div>
+        <br/>
+        <br/>
+
+    </template>
+
+    <script>
+        class StlmStat extends Polymer.Element {
+            static get is() {
+                return 'stlm-stat';
+            }
+
+        }
+
+        window.customElements.define(StlmStat.is, StlmStat);
+    </script>
+</dom-module>
