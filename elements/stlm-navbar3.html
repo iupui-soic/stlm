@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../bower_components/iron-icons/av-icons.html">
 <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
@@ -22,10 +23,31 @@
             :host {
                 display: block;
             }
+
+            paper-button {
+                min-width: 30px;
+                height: 20px;
+                color: white;
+            }
+
+            paper-button.green {
+                background-color: var(--paper-green-500);
+            }
+
+            paper-button.disabled {
+                min-width: 30px;
+                height: 20px;
+            }
+
+            paper-button.red {
+                background-color: var(--paper-red-500);
+            }
         </style>
         <paper-toolbar>
             <paper-menu-button slot="top" style="width:20%">
-                <paper-button  slot="dropdown-trigger">[[selectedCourseName]]<iron-icon icon="chrome-reader-mode"></iron-icon></paper-button>
+                <paper-button slot="dropdown-trigger">[[selectedCourseName]]
+                    <iron-icon icon="chrome-reader-mode"></iron-icon>
+                </paper-button>
                 <paper-listbox slot="dropdown-content" selected="{{selectedCourseName}}" attr-for-selected="coursename">
                     <template is="dom-repeat" items="[[suggestions]]" as="suggestion">
                         <paper-item coursename="[[suggestion.name]]">[[suggestion.name]]</paper-item>
@@ -42,7 +64,6 @@
                         icon="assignment-turned-in"></iron-icon>
                 </paper-button>
                 <paper-listbox slot="dropdown-content">
-                    <paper-item>Files(word,pdf,ppt,excel)</paper-item>
                     <paper-item>Spreadsheet</paper-item>
                     <paper-item>Data Flow Diagram</paper-item>
                     <paper-item on-tap="toggleDialog">Upload Files</paper-item>
@@ -51,19 +72,58 @@
             <paper-menu-button slot="top" style="width:20%">
                 <paper-button slot="dropdown-trigger">Assignment&nbsp;<iron-icon icon="assignment"></iron-icon>
                 </paper-button>
-                <paper-listbox slot="dropdown-content">
-                    <paper-item>Assignment1</paper-item>
-                    <paper-item>Assignment2</paper-item>
-                    <paper-item>Assignment3</paper-item>
-                    <paper-item>Assignment5</paper-item>
-                    <paper-item>Assignment6</paper-item>
+                <paper-listbox slot="dropdown-content" style="width:300px">
+                    <paper-collapse-item header="Assignment1">
+                        <paper-collapse-item-content>
+                            <paper-item>Question1
+                                <paper-button raised class="green startbutton" id="ass1-q1" on-tap="startRecording">
+                                    start
+                                    <iron-icon icon="av:fiber-manual-record"></iron-icon>
+                                </paper-button>
+                                <paper-button disabled raised class="disabled backbutton">
+                                    <iron-icon icon="undo"></iron-icon>
+                                </paper-button>
+                            </paper-item>
+                            <paper-item>Question2
+                                <paper-button raised class="green startbutton" id="ass1-q2" on-tap="startRecording">
+                                    start
+                                    <iron-icon icon="av:fiber-manual-record"></iron-icon>
+                                </paper-button>
+                                <paper-button disabled raised class="disabled backbutton">
+                                    <iron-icon icon="undo"></iron-icon>
+                                </paper-button>
+                            </paper-item>
+                        </paper-collapse-item-content>
+                    </paper-collapse-item>
+                    <paper-collapse-item header="Assignment2">
+                        <paper-collapse-item-content>
+                            <paper-item>Question1
+                                <paper-button raised class="green startbutton" id="ass2-q1" on-tap="startRecording">
+                                    start
+                                    <iron-icon icon="av:fiber-manual-record"></iron-icon>
+                                </paper-button>
+                                <paper-button disabled class="disabled">
+                                    <iron-icon icon="undo"></iron-icon>
+                                </paper-button>
+                            </paper-item>
+                            <paper-item>Question2
+                                <paper-button raised class="green startbutton" id="ass2-q2" on-tap="startRecording">
+                                    start
+                                    <iron-icon icon="av:fiber-manual-record"></iron-icon>
+                                </paper-button>
+                                <paper-button disabled class="disabled">
+                                    <iron-icon icon="undo"></iron-icon>
+                                </paper-button>
+                            </paper-item>
+                        </paper-collapse-item-content>
+                    </paper-collapse-item>
                 </paper-listbox>
             </paper-menu-button>
         </paper-toolbar>
-
         <simple-dialog id="dialog">
             <h2>Please upload your files here</h2>
-            <vaadin-upload target="serverUrl" method="POST" timeout="300000" headers="{'X-Custom-Header': 'value'}"
+            <vaadin-upload accept=".pdf,.doc,.docx,.xml" target="serverUrl" method="POST" timeout="300000"
+                           headers="{'X-Custom-Header': 'value'}"
                            form-data-name="my-attachment">
                 <iron-icon slot="drop-label-icon" icon="description"></iron-icon>
                 <span slot="drop-label">Drop your files here</span>
@@ -105,6 +165,7 @@
                     // Monkey-patch vaadin-upload prototype to use MockHttpRequest
                     Object.getPrototypeOf(document.createElement('vaadin-upload'))._createXhr = mockXhrGenerator;
                 });
+
             </script>
         </simple-dialog>
 
@@ -114,14 +175,63 @@
             static get is() {
                 return 'stlm-navbar3';
             }
+
             toggleDialog() {
                 this.$.dialog.open();
             }
+
+            startRecording(e) {
+                // when user clicks on icon
+                if (null === e.target.nextElementSibling) {
+                    if (localStorage.getItem(e.target.parentNode.id) == 'started') {
+                        this.shadowRoot.getElementById(e.target.parentNode.id).classList.remove('red');
+                        this.shadowRoot.getElementById(e.target.parentNode.id).classList.add('green');
+                        localStorage.setItem(e.target.parentNode.id, 'stopped');
+                        e.target.parentNode.innerHTML = 'START <iron-icon icon="av:fiber-manual-record"></iron-icon>';
+                    } else {
+                        this.shadowRoot.getElementById(e.target.parentNode.id).classList.remove('green');
+                        this.shadowRoot.getElementById(e.target.parentNode.id).classList.add('red');
+                        localStorage.setItem(e.target.parentNode.id, 'started');
+                        e.target.parentNode.innerHTML = 'STOP <iron-icon icon="av:stop"></iron-icon>';
+                    }
+                } else { // when user clicks on the button
+                    if (localStorage.getItem(e.target.id) == 'started') {
+                        this.shadowRoot.getElementById(e.target.id).classList.remove('red');
+                        this.shadowRoot.getElementById(e.target.id).classList.add('green');
+                        localStorage.setItem(e.target.id, 'stopped');
+                        e.target.innerHTML = 'START <iron-icon icon="av:fiber-manual-record"></iron-icon>';
+                    } else {
+                        this.shadowRoot.getElementById(e.target.id).classList.remove('green');
+                        this.shadowRoot.getElementById(e.target.id).classList.add('red');
+                        localStorage.setItem(e.target.id, 'started');
+                        e.target.innerHTML = 'STOP <iron-icon icon="av:stop"></iron-icon>';
+                    }
+                }
+            }
+
             constructor() {
                 super();
                 this.suggestions = [{"id": "1", "name": "HIM M200"}, {"id": "2", "name": "HIM M220"}];
             }
+
+            ready() {
+                super.ready();
+                for (var a in localStorage) {
+                    if (a.includes('ass')) {
+                        if (localStorage.getItem(a) == 'started') {
+                            this.shadowRoot.getElementById(a).classList.remove('green');
+                            this.shadowRoot.getElementById(a).classList.add('red');
+                            this.shadowRoot.getElementById(a).innerHTML = 'STOP <iron-icon icon="av:stop"></iron-icon>';
+                        } else if (localStorage.getItem(a) == 'stopped') {
+                            this.shadowRoot.getElementById(a).classList.remove('red');
+                            this.shadowRoot.getElementById(a).classList.add('green');
+                            this.shadowRoot.getElementById(a).innerHTML = 'START <iron-icon icon="av:fiber-manual-record"></iron-icon>';
+                        }
+                    }
+                }
+            }
         }
+
         window.customElements.define(StlmNavbar3.is, StlmNavbar3);
     </script>
 </dom-module>
