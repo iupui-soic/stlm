@@ -188,7 +188,7 @@
                         this.shadowRoot.getElementById(e.target.parentNode.id).classList.add('green');
                         localStorage.setItem(e.target.parentNode.id, 'stopped');
                         e.target.parentNode.innerHTML = 'START <iron-icon icon="av:fiber-manual-record"></iron-icon>';
-                    } else if (localStorage.getItem(e.target.parentNode.id) == 'stopped') {
+                    } else {
                         this.shadowRoot.getElementById(e.target.parentNode.id).classList.remove('green');
                         this.shadowRoot.getElementById(e.target.parentNode.id).classList.add('red');
                         localStorage.setItem(e.target.parentNode.id, 'started');
@@ -200,7 +200,7 @@
                         this.shadowRoot.getElementById(e.target.id).classList.add('green');
                         localStorage.setItem(e.target.id, 'stopped');
                         e.target.innerHTML = 'START <iron-icon icon="av:fiber-manual-record"></iron-icon>';
-                    } else if (localStorage.getItem(e.target.id) == 'stopped') {
+                    } else {
                         this.shadowRoot.getElementById(e.target.id).classList.remove('green');
                         this.shadowRoot.getElementById(e.target.id).classList.add('red');
                         localStorage.setItem(e.target.id, 'started');
