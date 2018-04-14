@@ -22,7 +22,10 @@
     "juicy-ace-editor": "Juicy/juicy-ace-editor",
     "google-chart": "GoogleWebComponents/google-chart",
     "vaadin-upload": "vaadin/vaadin-upload",
-    "ttest": "AndreasMadsen/ttest"
+    "ttest": "AndreasMadsen/ttest",
+    "hot-table": "handsontable/hot-table"
+
+
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
