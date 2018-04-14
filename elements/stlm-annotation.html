@@ -1,5 +1,4 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <dom-module id="stlm-annotation">
     <template>
@@ -20,18 +19,9 @@
         <div id="contextMenu">
             <ul>
                 <li id="annotateThis"></li>
-                <li><input id="annotationField" type="text"/><input type="button" onclick="saveAnnotation()"
-                                                                    value="Submit"></li>
+                <li><input id="annotationField" type="text"/><input type="button" on-click="saveAnnotation" value="Submit"></li>
             </ul>
         </div>
-
-        <script>
-            function saveAnnotation() {
-                var annotation = document.getElementById('annotateThis').innerHTML + ':'
-                    + document.getElementById('annotationField').value;
-                window.localStorage.setItem(now().toDateString(), annotation);
-            }
-        </script>
 
         <style>
             #contextMenu {
@@ -69,6 +59,13 @@
                 background: blue;
                 color: #FFF;
             }
+            code {
+                padding: 1px 1px;
+                border: 1px dashed #adb5bd;
+                background-color: #f1f3f5;
+                font-family: "Droid Sans Mono", monospace;
+                font-size: 1rem;
+            }
         </style>
     </template>
 
@@ -84,13 +81,11 @@
                 var menu = this.$.contextMenu;
                 var annotateThis = this.$.annotateThis;
                 var annotationField = this.$.annotationField;
-
                 menuArea.oncontextmenu = function (e) {
                     var text = window.getSelection().toString();
                     annotateThis.innerHTML = text;
-                    console.log(text);
                     if (text.length > 0) {
-                        annotationField.value = '';
+                        annotationField.value = window.localStorage.getItem('stlm-annotation:' + text);
                         e.preventDefault();
                         menu.style.left = e.pageX + 'px';
                         menu.style.top = e.pageY + 'px';
@@ -99,6 +94,36 @@
                         menu.style.display = 'none';
                     }
                 }
+                this.highlightAnnotations();
+            }
+
+            saveAnnotation() {
+                var annotation = document.getElementsByTagName('stlm-annotation')[0].shadowRoot.getElementById('annotationField').value;
+                window.localStorage.setItem('stlm-annotation:' + document.getElementsByTagName('stlm-annotation')[0].shadowRoot.getElementById('annotateThis').innerHTML, annotation);
+                this.highlightAnnotations();
+                this.$.contextMenu.style.display = 'none';
+            }
+
+            highlightAnnotations() {
+                for (var a in localStorage) {
+                    if (a.includes('stlm-annotation:')) {
+                        var key = a.split(':')[1];
+                        var text = document.getElementsByTagName('stlm-annotation')[0].shadowRoot.getElementById('selectableArea').innerHTML;
+                        document.getElementsByTagName('stlm-annotation')[0].shadowRoot.getElementById('selectableArea').innerHTML = this.spliceSlice(text, key, '<code>', '</code>');
+                    }
+                }
+            }
+
+            spliceSlice(str, key, add, end) {
+                var beforeText = str.slice(0, str.indexOf(key));
+
+                //to avoid double highlighting
+                if(beforeText.slice(str.indexOf(key)-6, str.indexOf(key)) == '<code>') {
+                    return str;
+                }
+
+                var afterText = str.slice(str.indexOf(key) + key.length);
+                return beforeText + (add || "") + key + (end || "") + afterText;
             }
         }
 
