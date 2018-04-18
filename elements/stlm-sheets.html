@@ -16,25 +16,23 @@
             <button id="addbutton" onclick="addColumn()">+</button>
         </div>
         <div1 style="float:left">
-            <hot-table datarows="{{itemsArray}}" id='table' width="100%">
+            <hot-table datarows="{{itemsArray}}" id='spreadsheet' width="100%">
                 <hot-column></hot-column>
                 <hot-column></hot-column>
                 <hot-column></hot-column>
             </hot-table>
-            <button id="submit" onclick="saveContent()">SUBMIT</button>
+            <button id="submit" onclick="saveContent()">Save Sheet</button>
         </div1>
 
         <script>
             function addColumn() {
-                var table = document.getElementsByTagName('stlm-sheets')[0].shadowRoot.getElementById('table');
+                var table = document.getElementsByTagName('stlm-sheets')[0].shadowRoot.getElementById('spreadsheet');
                 table.innerHTML += '<hot-column></hot-column>';
-
             }
 
             function saveContent() {
-                var ht = new Handsontable(document.getElementsByTagName('stlm-sheets')[0].shadowRoot.getElementById('table'));
-                localStorage.setItem('tabledata', ht.getData());
-                console.log(ht.getData());
+                var ht = document.getElementsByTagName('stlm-sheets')[0].shadowRoot.getElementById('spreadsheet');
+                localStorage.setItem('tabledata', JSON.stringify(ht.getData()));
             }
 
 
@@ -48,12 +46,11 @@
                 return 'stlm-sheets';
             }
 
-            constructor(){
-                super();
-                this.itemsArray=[{}, {}, {}];
+            ready(){
+                super.ready();
+                var data = JSON.parse(localStorage.getItem('tabledata'));
+                document.getElementsByTagName('stlm-sheets')[0].shadowRoot.getElementById('spreadsheet').loadData(data);
             }
-
-
         }
 
         window.customElements.define(StlmSheets.is, StlmSheets);

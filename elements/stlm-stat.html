@@ -41,7 +41,7 @@
 
         </style>
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
+        <script src="elements/ttestBundle.js"></script>
         <script>
             function initiate() {
                 $.ajax({
@@ -99,7 +99,8 @@
 
             function doTest() {
                 // TODO: Fix two-sample t-test. Hardcoded sample below
-                // console.log(jStat.ttest(20, getTableData(1), 2));
+                var resultDiv = document.getElementsByTagName('stlm-stat')[0].shadowRoot.getElementById('resultDiv');
+                resultDiv.innerHTML = 'p-value: ' + ttest(getTableData(0), getTableData(1)).valid();
             }
 
             function getTableData(columnNum) {
@@ -118,7 +119,9 @@
             <div id="tablespace"
                  style="width:200px;height:250px;overflow-y:scroll;overflow-x:scroll;overflow: auto; border:thin; border-color:#000000;border-style: outset;">
             </div>
-            <br>
+            <br/>
+            <div id="resultDiv"></div>
+            <br/>
             <button type="submit" onclick="doTest()">Perform T-Test</button>
         </div>
     </template>
