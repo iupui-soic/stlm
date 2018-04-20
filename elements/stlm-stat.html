@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 
 
 <dom-module id="stlm-stat">
@@ -98,9 +99,20 @@
             }
 
             function doTest() {
+                var ajaxElement = document.getElementsByTagName('stlm-stat')[0].shadowRoot.getElementById('ajaxGetValue');
                 // TODO: Fix two-sample t-test. Hardcoded sample below
-                var resultDiv = document.getElementsByTagName('stlm-stat')[0].shadowRoot.getElementById('resultDiv');
-                resultDiv.innerHTML = 'p-value: ' + ttest(getTableData(0), getTableData(1)).valid();
+                //var resultDiv = document.getElementsByTagName('stlm-stat')[0].shadowRoot.getElementById('resultDiv');
+                //resultDiv.innerHTML = 'p-value: ' + ttest(getTableData(0), getTableData(1)).valid();
+
+                var sample1 = getTableData(0);
+                var sample2 = getTableData(1);
+
+                console.log(sample1);
+
+                ajaxElement.headers['Authorization'] = 'Basic ' + btoa('admin:Admin123');
+                ajaxElement.params = {'sample1': sample1, 'sample2': sample2};
+                ajaxElement.generateRequest();
+
             }
 
             function getTableData(columnNum) {
@@ -112,6 +124,8 @@
             }
         </script>
         <div id="inputgroup" class="inputs" height="100%">
+            <h1>STATISTICAL ANALYSIS</h1>
+            <h2>Please upload the .csv file data on which you would like to perform T-Test.</h2>
             <input type="file" id="csvfile"/>
             <input type="button" id="viewfile" value="Submit" onclick="initiate()"/>
             <br>
@@ -119,9 +133,14 @@
             <div id="tablespace"
                  style="width:200px;height:250px;overflow-y:scroll;overflow-x:scroll;overflow: auto; border:thin; border-color:#000000;border-style: outset;">
             </div>
-            <br/>
+            <h3>click 'Perform T-Test' below to receive p and t-value.</h3>
             <div id="resultDiv"></div>
             <br/>
+            <iron-ajax
+                    id="ajaxGetValue"
+                    url="https://toolkit.librehealth.io/master/ws/rest/v1/ttest"
+                    on-response="handleResponse">
+            </iron-ajax>
             <button type="submit" onclick="doTest()">Perform T-Test</button>
         </div>
     </template>
