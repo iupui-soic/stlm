@@ -17,11 +17,9 @@
         </div>
         <div1 style="float:left">
             <hot-table datarows="{{itemsArray}}" id='spreadsheet' width="100%">
-                <hot-column></hot-column>
-                <hot-column></hot-column>
-                <hot-column></hot-column>
             </hot-table>
-            <button id="submit" onclick="saveContent()">Save Sheet</button>
+            <button id="submit" style="float: left" onclick="saveContent()">Save Sheet</button>
+            <button id="submit" style="float: right" onclick="printContent()">Print Sheet</button>
         </div1>
 
         <script>
@@ -35,7 +33,34 @@
                 localStorage.setItem('tabledata', JSON.stringify(ht.getData()));
             }
 
+            function printContent() {
+                var data = JSON.parse(localStorage.getItem('tabledata'));
+                arrayToCSV(data);
+            }
 
+            function arrayToCSV(twoDiArray) {
+                //  Modified from: http://stackoverflow.com/questions/17836273/
+                //  export-javascript-data-to-csv-file-without-server-interaction
+                var csvRows = [];
+                for (var i = 0; i < twoDiArray.length; ++i) {
+                    for (var j = 0; j < twoDiArray[i].length; ++j) {
+                        if (twoDiArray[i][j] != null) {
+                            twoDiArray[i][j] = '\"' + twoDiArray[i][j] + '\"';  // Handle elements that contain commas
+                        }
+                    }
+                    csvRows.push(twoDiArray[i].join(','));
+                }
+
+                var csvString = csvRows.join('\r\n');
+                var a = document.createElement('a');
+                a.href = 'data:attachment/csv,' + csvString;
+                a.target = '_blank';
+                a.download = 'spreadsheet.csv';
+
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
         </script>
 
     </template>
@@ -46,10 +71,18 @@
                 return 'stlm-sheets';
             }
 
-            ready(){
+            ready() {
                 super.ready();
+                var spreadsheet = document.getElementsByTagName('stlm-sheets')[0].shadowRoot.getElementById('spreadsheet');
                 var data = JSON.parse(localStorage.getItem('tabledata'));
-                document.getElementsByTagName('stlm-sheets')[0].shadowRoot.getElementById('spreadsheet').loadData(data);
+                if (data == 'undefined' || data.length == 0) {
+                    spreadsheet.innerHTML = '<hot-column></hot-column> <hot-column></hot-column> <hot-column></hot-column>';
+                } else {
+                    for (var i = 0; i < data[0].length; i++) {
+                        spreadsheet.innerHTML += '<hot-column></hot-column>';
+                    }
+                }
+                spreadsheet.loadData(data);
             }
         }
 
