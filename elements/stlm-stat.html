@@ -42,7 +42,6 @@
 
         </style>
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="elements/ttestBundle.js"></script>
         <script>
             function initiate() {
                 $.ajax({
@@ -98,23 +97,6 @@
                 }
             }
 
-            function doTest() {
-                var ajaxElement = document.getElementsByTagName('stlm-stat')[0].shadowRoot.getElementById('ajaxGetValue');
-                // TODO: Fix two-sample t-test. Hardcoded sample below
-                //var resultDiv = document.getElementsByTagName('stlm-stat')[0].shadowRoot.getElementById('resultDiv');
-                //resultDiv.innerHTML = 'p-value: ' + ttest(getTableData(0), getTableData(1)).valid();
-
-                var sample1 = getTableData(0);
-                var sample2 = getTableData(1);
-
-                console.log(sample1);
-
-                ajaxElement.headers['Authorization'] = 'Basic ' + btoa('admin:Admin123');
-                ajaxElement.params = {'sample1': sample1, 'sample2': sample2};
-                ajaxElement.generateRequest();
-
-            }
-
             function getTableData(columnNum) {
                 var table = document.getElementsByTagName('stlm-stat')[0].shadowRoot.getElementById('sensorValues');
                 var colArray = Array.prototype.map.call(table.querySelectorAll('tr'), function (row) {
@@ -126,22 +108,26 @@
         <div id="inputgroup" class="inputs" height="100%">
             <h1>STATISTICAL ANALYSIS</h1>
             <h2>Please upload the .csv file data on which you would like to perform T-Test.</h2>
-            <input type="file" id="csvfile"/>
-            <input type="button" id="viewfile" value="Submit" onclick="initiate()"/>
-            <br>
-            <br>
+            <div>
+                <input type="file" id="csvfile"/>
+                <input type="button" id="viewfile" value="Submit" onclick="initiate()"/>
+            </div>
+            <br style="line-height: 5px"/>
+            <div>p-Value: <span id="pValueDiv"></span></div>
+            <div>t-statistic: <span id="tStatisticDiv"></span></div>
+            <br style="line-height: 5px"/>
             <div id="tablespace"
                  style="width:200px;height:250px;overflow-y:scroll;overflow-x:scroll;overflow: auto; border:thin; border-color:#000000;border-style: outset;">
             </div>
             <h3>click 'Perform T-Test' below to receive p and t-value.</h3>
-            <div id="resultDiv"></div>
-            <br/>
+
             <iron-ajax
-                    id="ajaxGetValue"
-                    url="https://toolkit.librehealth.io/master/ws/rest/v1/ttest"
-                    on-response="handleResponse">
+                    id="ajax"
+                    url={{posturl}}
+                    on-response="handleResponse"
+                    handle-as="text">
             </iron-ajax>
-            <button type="submit" onclick="doTest()">Perform T-Test</button>
+            <button type="submit" on-click="doTest">Perform T-Test</button>
         </div>
     </template>
 
@@ -149,6 +135,24 @@
         class StlmStat extends Polymer.Element {
             static get is() {
                 return 'stlm-stat';
+            }
+
+            static get properties() {
+                return {
+                    posturl: String
+                }
+            }
+
+            doTest() {
+                var sample1 = getTableData(0);
+                var sample2 = getTableData(1);
+                this.$.ajax.params = {'sample1': sample1, 'sample2': sample2};
+                this.$.ajax.generateRequest();
+            }
+
+            handleResponse(xhr) {
+                this.$.pValueDiv.innerHTML = xhr.detail.response.split(',')[0];
+                this.$.tStatisticDiv.innerHTML = xhr.detail.response.split(',')[1];
             }
         }
 
