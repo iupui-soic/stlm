@@ -28,28 +28,23 @@
             paper-button {
                 min-width: 30px;
                 height: 20px;
-                color: white;
+            }
+
+            paper-button.backbutton {
+                background-color: var(--paper-amber-500);
+            }
+
+            paper-button.compare {
+                background-color: var(--paper-light-blue-500);
             }
 
             paper-button.green {
                 background-color: var(--paper-green-500);
             }
 
-            paper-button.compare {
-                background-color: var(--paper-yellow-800);
-                color: white;
-                --paper-button-raised-keyboard-focus: {
-                    background-color: var(--paper-yellow-a200) !important;
-                    color: white !important;
-                };
-            }
-            paper-button.disabled {
-                min-width: 30px;
-                height: 20px;
-            }
-
             paper-button.red {
                 background-color: var(--paper-red-500);
+                color: white;
             }
 
             paper-toolbar {
@@ -89,12 +84,13 @@
                     <paper-collapse-item header="Assignment1">
                         <paper-collapse-item-content>
                             <paper-item>Question1
-                                <paper-button raised class="green startbutton" id="ass1-q1" on-tap="startRecording"><iron-icon icon="av:play-circle-outline"></iron-icon>
+                                <paper-button raised class="green startbutton" id="ass1-q1" on-tap="startRecording">
+                                    <iron-icon icon="av:play-circle-outline"></iron-icon>
                                 </paper-button>
-                                <paper-button disabled raised class="disabled backbutton">
+                                <paper-button disabled raised class="backbutton" on-tap="revertRecording">
                                     <iron-icon icon="undo"></iron-icon>
                                 </paper-button>
-                                <paper-button id="comparebutton" raised class="compare" label="compare">
+                                <paper-button disabled raised id="comparebutton" class="compare">
                                     <iron-icon icon="image:compare"></iron-icon>
                                 </paper-button>
                             </paper-item>
@@ -102,10 +98,10 @@
                                 <paper-button raised class="green startbutton" id="ass1-q2" on-tap="startRecording">
                                     <iron-icon icon="av:play-circle-outline"></iron-icon>
                                 </paper-button>
-                                <paper-button disabled raised class="disabled backbutton">
+                                <paper-button disabled raised class="backbutton" on-tap="revertRecording">
                                     <iron-icon icon="undo"></iron-icon>
                                 </paper-button>
-                                <paper-button id="comparebutton" raised class="compare" label="compare">
+                                <paper-button disabled raised id="comparebutton" class="compare">
                                     <iron-icon icon="image:compare"></iron-icon>
                                 </paper-button>
                             </paper-item>
@@ -117,10 +113,10 @@
                                 <paper-button raised class="green startbutton" id="ass2-q1" on-tap="startRecording">
                                     <iron-icon icon="av:play-circle-outline"></iron-icon>
                                 </paper-button>
-                                <paper-button disabled class="disabled">
+                                <paper-button disabled raised class="backbutton" on-tap="revertRecording">
                                     <iron-icon icon="undo"></iron-icon>
                                 </paper-button>
-                                <paper-button id="comparebutton" raised class="compare" label="compare">
+                                <paper-button disabled raised id="comparebutton" class="compare" label="compare">
                                     <iron-icon icon="image:compare"></iron-icon>
                                 </paper-button>
                             </paper-item>
@@ -128,10 +124,10 @@
                                 <paper-button raised class="green startbutton" id="ass2-q2" on-tap="startRecording">
                                     <iron-icon icon="av:play-circle-outline"></iron-icon>
                                 </paper-button>
-                                <paper-button disabled class="disabled">
+                                <paper-button disabled raised class="backbutton" on-tap="revertRecording">
                                     <iron-icon icon="undo"></iron-icon>
                                 </paper-button>
-                                <paper-button id="comparebutton" raised class="compare" label="compare">
+                                <paper-button disabled raised id="comparebutton" class="compare" label="compare">
                                     <iron-icon icon="image:compare"></iron-icon>
                                 </paper-button>
                             </paper-item>
@@ -204,28 +200,46 @@
                 // when user clicks on icon
                 if (null === e.target.nextElementSibling) {
                     if (localStorage.getItem(e.target.parentNode.id) == 'started') {
-                        this.shadowRoot.getElementById(e.target.parentNode.id).classList.remove('red');
-                        this.shadowRoot.getElementById(e.target.parentNode.id).classList.add('green');
+                        e.target.parentNode.classList.remove('red');
+                        e.target.parentNode.classList.add('green');
                         localStorage.setItem(e.target.parentNode.id, 'stopped');
+                        e.target.parentNode.nextElementSibling.removeAttribute('disabled');
+                        e.target.parentNode.nextElementSibling.nextElementSibling.removeAttribute('disabled');
+                        e.target.parentNode.setAttribute('disabled', 'true');
                         e.target.parentNode.innerHTML = '<iron-icon icon="av:play-circle-outline"></iron-icon>';
                     } else {
-                        this.shadowRoot.getElementById(e.target.parentNode.id).classList.remove('green');
-                        this.shadowRoot.getElementById(e.target.parentNode.id).classList.add('red');
+                        e.target.parentNode.classList.remove('green');
+                        e.target.parentNode.classList.add('red');
                         localStorage.setItem(e.target.parentNode.id, 'started');
                         e.target.parentNode.innerHTML = '<iron-icon icon="av:stop"></iron-icon>';
                     }
                 } else { // when user clicks on the button
                     if (localStorage.getItem(e.target.id) == 'started') {
-                        this.shadowRoot.getElementById(e.target.id).classList.remove('red');
-                        this.shadowRoot.getElementById(e.target.id).classList.add('green');
+                        e.target.classList.remove('red');
+                        e.target.classList.add('green');
                         localStorage.setItem(e.target.id, 'stopped');
+                        e.target.nextElementSibling.removeAttribute('disabled');
+                        e.target.nextElementSibling.nextElementSibling.removeAttribute('disabled');
+                        e.target.setAttribute('disabled', 'true');
                         e.target.innerHTML = '<iron-icon icon="av:play-circle-outline"></iron-icon>';
                     } else {
-                        this.shadowRoot.getElementById(e.target.id).classList.remove('green');
-                        this.shadowRoot.getElementById(e.target.id).classList.add('red');
+                        e.target.classList.remove('green');
+                        e.target.classList.add('red');
                         localStorage.setItem(e.target.id, 'started');
                         e.target.innerHTML = '<iron-icon icon="av:stop"></iron-icon>';
                     }
+                }
+            }
+
+            revertRecording(e) {
+                if (null === e.target.nextElementSibling) {
+                    e.target.parentNode.previousElementSibling.removeAttribute('disabled');
+                    e.target.parentNode.setAttribute('disabled', 'true');
+                    e.target.parentNode.nextElementSibling.setAttribute('disabled', 'true');
+                } else {
+                    e.target.previousElementSibling.removeAttribute('disabled');
+                    e.target.setAttribute('disabled', 'true');
+                    e.target.nextElementSibling.setAttribute('disabled', 'true');
                 }
             }
 
