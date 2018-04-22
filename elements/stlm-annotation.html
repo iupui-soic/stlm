@@ -19,7 +19,8 @@
         <div id="contextMenu">
             <ul>
                 <li id="annotateThis"></li>
-                <li><input id="annotationField" type="text"/><input type="button" on-click="saveAnnotation" value="Submit"></li>
+                <li><input id="annotationField" type="text"/><input type="button" on-click="saveAnnotation" value="Submit">
+                <input type="button" on-click="printContent()" value="Print"></li>
             </ul>
         </div>
 
@@ -67,6 +68,39 @@
                 font-size: 1rem;
             }
         </style>
+        <script>
+            function printContent() {
+                var data = JSON.parse(localStorage.getItem('annotation'));
+                arrayToCSV(data);
+            }
+
+            function arrayToCSV(twoDiArray) {
+                //  Modified from: http://stackoverflow.com/questions/17836273/
+                //  export-javascript-data-to-csv-file-without-server-interaction
+                var csvRows = [];
+                for (var i = 0; i < twoDiArray.length; ++i) {
+                    for (var j = 0; j < twoDiArray[i].length; ++j) {
+                        if (twoDiArray[i][j] != null) {
+                            twoDiArray[i][j] = '\"' + twoDiArray[i][j] + '\"';  // Handle elements that contain commas
+                        }
+                    }
+                    csvRows.push(twoDiArray[i].join(','));
+                }
+
+                var csvString = csvRows.join('\r\n');
+                var a = document.createElement('a');
+                a.href = 'data:attachment/csv,' + csvString;
+                a.target = '_blank';
+                a.download = 'spreadsheet.csv';
+
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+
+        </script>
+
+
     </template>
 
     <script>
@@ -101,7 +135,7 @@
                 var annotation = document.getElementsByTagName('stlm-annotation')[0].shadowRoot.getElementById('annotationField').value;
                 window.localStorage.setItem('stlm-annotation:' + document.getElementsByTagName('stlm-annotation')[0].shadowRoot.getElementById('annotateThis').innerHTML, annotation);
                 this.highlightAnnotations();
-                this.$.contextMenu.style.display = 'none';
+                //this.$.contextMenu.style.display = 'none';
             }
 
             highlightAnnotations() {
@@ -125,6 +159,8 @@
                 var afterText = str.slice(str.indexOf(key) + key.length);
                 return beforeText + (add || "") + key + (end || "") + afterText;
             }
+
+
         }
 
         customElements.define(StlmAnnotation.is, StlmAnnotation);
