@@ -34,6 +34,7 @@
             }
 
             function printContent() {
+                saveContent();
                 var data = JSON.parse(localStorage.getItem('tabledata'));
                 arrayToCSV(data);
             }
