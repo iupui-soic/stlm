@@ -142,7 +142,6 @@
                         data.push([a.split(':')[1], localStorage.getItem(a)]);
                     }
                 }
-                console.log(data);
                 this.arrayToCSV(data);
             }
 
@@ -152,10 +151,11 @@
                 var csvRows = [];
                 for (var i = 0; i < twoDiArray.length; ++i) {
                     for (var j = 0; j < twoDiArray[i].length; ++j) {
-                        //TODO: if there is comma in the annotations itself
-                        /*if (twoDiArray[i][j] != null) {
-                            twoDiArray[i][j] = '\"' + twoDiArray[i][j] + '\"';  // Handle elements that contain commas
-                        }*/
+                        if (twoDiArray[i][j] != null) {
+                            if(twoDiArray[i][j].includes(',')) {
+                                twoDiArray[i][j] = '\"' + twoDiArray[i][j] + '\"';  // Handle elements that contain commas
+                            }
+                        }
                     }
                     csvRows.push(twoDiArray[i].join(','));
                 }
