@@ -1,0 +1,43 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link href="prettydiff/css/index.css" media="all" rel="stylesheet" type="text/css"/>
+
+<dom-module id="stlm-diff">
+    <template id="prettydiff">
+        <button type="button" onclick="prettyTest()">TESTING...</button>
+        <div id="output"></div>
+        <script>
+            function prettyTest() {
+                var args = {
+                    source: "asdf",
+                    diff: "asdd",
+                    lang: "text"
+                };
+                var output = global.prettydiff.prettydiff(args);
+                document.getElementsByTagName('stlm-diff')[0].shadowRoot.getElementById('output').innerHTML = output;
+            }
+        </script>
+
+        <script src="elements/prettydiff/lib//global.js" type="application/javascript"></script>
+        <script src="elements/prettydiff/lib//language.js" type="application/javascript"></script>
+        <script src="elements/prettydiff/lib//options.js" type="application/javascript"></script>
+        <script src="elements/prettydiff/lib//finalFile.js" type="application/javascript"></script>
+        <script src="elements/prettydiff/lib//safeSort.js" type="application/javascript"></script>
+        <script src="elements/prettydiff/lib//csspretty.js" type="application/javascript"></script>
+        <script src="elements/prettydiff/lib//csvpretty.js" type="application/javascript"></script>
+        <script src="elements/prettydiff/lib//diffview.js" type="application/javascript"></script>
+        <script src="elements/prettydiff/lib//jspretty.js" type="application/javascript"></script>
+        <script src="elements/prettydiff/lib//markuppretty.js" type="application/javascript"></script>
+        <script src="elements/prettydiff/prettydiff.js" type="application/javascript"></script>
+    </template>
+
+    <script>
+        class StlmDiff extends Polymer.Element {
+            static get is() {
+                return "stlm-diff";
+            }
+        }
+
+        customElements.define(StlmDiff.is, StlmDiff);
+    </script>
+
+</dom-module>

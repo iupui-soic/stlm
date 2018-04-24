@@ -16,7 +16,7 @@
 <link rel="import" href="simple-dialog.html">
 
 <script src="../bower_components/web-animations-js/web-animations-next-lite.min.js"></script>
-<dom-module id="stlm-navbar3">
+<dom-module id="stlm-navbar">
     <template>
         <style>
             :host {
@@ -193,9 +193,9 @@
 
     </template>
     <script>
-        class StlmNavbar3 extends Polymer.Element {
+        class StlmNavbar extends Polymer.Element {
             static get is() {
-                return 'stlm-navbar3';
+                return 'stlm-navbar';
             }
 
             toggleDialog() {
@@ -280,6 +280,6 @@
             }
         }
 
-        window.customElements.define(StlmNavbar3.is, StlmNavbar3);
+        window.customElements.define(StlmNavbar.is, StlmNavbar);
     </script>
 </dom-module>
