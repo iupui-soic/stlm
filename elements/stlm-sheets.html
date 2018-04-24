@@ -76,14 +76,16 @@
                 super.ready();
                 var spreadsheet = document.getElementsByTagName('stlm-sheets')[0].shadowRoot.getElementById('spreadsheet');
                 var data = JSON.parse(localStorage.getItem('tabledata'));
-                if (data == 'undefined' || data.length == 0) {
-                    spreadsheet.innerHTML = '<hot-column></hot-column> <hot-column></hot-column> <hot-column></hot-column>';
-                } else {
-                    for (var i = 0; i < data[0].length; i++) {
-                        spreadsheet.innerHTML += '<hot-column></hot-column>';
+                if (data != null) {
+                    if ((data == 'undefined' || data.length == 0)) {
+                        spreadsheet.innerHTML = '<hot-column></hot-column> <hot-column></hot-column> <hot-column></hot-column>';
+                    } else {
+                        for (var i = 0; i < data[0].length; i++) {
+                            spreadsheet.innerHTML += '<hot-column></hot-column>';
+                        }
                     }
+                    spreadsheet.loadData(data);
                 }
-                spreadsheet.loadData(data);
             }
         }
 

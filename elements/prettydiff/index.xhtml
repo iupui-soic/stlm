@@ -41,157 +41,23 @@
 
 </head>
 <body class="white" id="prettydiff">
-<h1 id="loadmask">
-            <span>
-                <svg
-                        height="2000.000000pt"
-                        id="pdlogo"
-                        preserveAspectRatio="xMidYMid meet"
-                        version="1.0"
-                        viewBox="0 0 2000.000000 2000.000000"
-                        width="2000.000000pt"
-                        xmlns="http://www.w3.org/2000/svg">
-                    <g
-                            fill="#999"
-                            stroke="none"
-                            transform="translate(0.000000,2000.000000) scale(0.100000,-0.100000)">
-                        <path
-                                d="M14871 18523 c-16 -64 -611 -2317 -946 -3588 -175 -660 -319 -1202 -320 -1204 -2 -2 -50 39 -107 91 -961 876 -2202 1358 -3498 1358 -1255 0 -2456 -451 -3409 -1279 -161 -140 -424 -408 -560 -571 -507 -607 -870 -1320 -1062 -2090 -58 -232 -386 -1479 -2309 -8759 -148 -563 -270 -1028 -270 -1033 0 -4 614 -8 1365 -8 l1364 0 10 38 c16 63 611 2316 946 3587 175 660 319 1202 320 1204 2 2 50 -39 107 -91 543 -495 1169 -862 1863 -1093 1707 -568 3581 -211 4965 946 252 210 554 524 767 796 111 143 312 445 408 613 229 406 408 854 525 1320 57 225 380 1451 2310 8759 148 563 270 1028 270 1033 0 4 -614 8 -1365 8 l-1364 0 -10 -37z m-4498 -5957 c477 -77 889 -256 1245 -542 523 -419 850 -998 954 -1689 18 -121 18 -549 0 -670 -80 -529 -279 -972 -612 -1359 -412 -480 -967 -779 -1625 -878 -121 -18 -549 -18 -670 0 -494 74 -918 255 -1283 548 -523 419 -850 998 -954 1689 -18 121 -18 549 0 670 104 691 431 1270 954 1689 365 293 828 490 1283 545 50 6 104 13 120 15 72 10 495 -3 588 -18z"/></g>
-                </svg>
-            </span>
-
-</h1>
 <div class="contentarea" id="webtool" style="display:none">
     <p id="functionGroup" role="menu">
         <strong>Function</strong>
         <span>
                     <input checked="checked" id="modediff" name="mode" type="radio"/>
                     <label for="modediff">Compare</label>
-                </span>
-
-
+        </span>
     </p>
     <div id="codeInput" role="main">
-        <p id="textareaTabKey" style="display:none">
-            <strong>Accessibility note:</strong>
-            Hold
-            <em>shift</em>
-            and press
-            <em>control</em>
-            key twice to focus on the previous element or press
-            <em>control</em>
-            twice to focus away from this textarea.</p>
         <div id="diffBase">
-
-            <div id="Beautify" style="display:none;">
-                <h2>Beautify Code</h2>
-                <p class="file"><input id="beautyfile" multiple="multiple" type="file"/>
-                    <label for="beautyfile">Beautify local file</label>
-                </p>
-                <p class="input">
-                    <label for="beautyinput">Beautification input</label>
-                    <textarea cols="80" id="beautyinput" rows="10" wrap="off"></textarea>
-                </p>
-                <p class="output">
-                    <label class="outputlabel" for="beautyoutput">Beautification output (read only)</label>
-                    <textarea cols="40" id="beautyoutput" readonly="readonly" rows="10" wrap="off"></textarea>
-                </p>
-                <span class="clear"></span>
-            </div>
-
-            <div id="Parse" style="display:none;">
-                <h2>Parse Code</h2>
-                <p class="file"><input id="parsefile" multiple="multiple" type="file"/>
-                    <label for="parsefile">Parse local file</label>
-                </p>
-                <p class="input">
-                    <label for="parseinput">Parse input</label>
-                    <textarea cols="80" id="parseinput" rows="10" wrap="off"></textarea>
-                </p>
-                <p class="output">
-                    <label class="outputlabel" for="parseoutput">Parse output (read only)</label>
-                    <textarea cols="40" id="parseoutput" readonly="readonly" rows="10" wrap="off"></textarea>
-                </p>
-                <span class="clear"></span>
-            </div>
-            <div id="Analysis" style="display:none;">
-                <h2>Analyze Code</h2>
-                <p class="file"><input id="analysisfile" multiple="multiple" type="file"/>
-                    <label for="analysisfile">Parse local file</label>
-                </p>
-                <p class="input">
-                    <label for="analysisinput">Parse input</label>
-                    <textarea cols="80" id="analysisinput" rows="10" wrap="off"></textarea>
-                </p>
-                <p class="output">
-                    <label class="outputlabel" for="analysisoutput">Parse output (read only)</label>
-                    <textarea cols="40" id="analysisoutput" readonly="readonly" rows="10" wrap="off"></textarea>
-                </p>
-                <span class="clear"></span>
-            </div>
-            <span class="clear"></span>
         </div>
         <p class="button" id="button-primary">
             <button type="button" value="Execute">Execute</button>
         </p>
         <div id="reports">
             <h2>Reporting data which updates with each use of the tool</h2>
-            <div class="box" id="feedreport" role="dialog_nonmodal" style="display:none">
-                <h3 class="heading"
-                    title="Grab this title element to open this dialogue or move it around around the screen.">
-                    <button>Feedback</button>
-                </h3>
-                <p class="buttons" style="display:none">
-                    <button class="minimize" title="Minimize this dialogue ">&uarr;</button>
-                    <button class="maximize" title="Maximize this dialogue to the browser window.">&uarr;</button>
-                    <button class="resize" title="Resize this dialogue.">&harr;</button>
-                </p>
-                <div class="body" id="feedreportbody" style="display:none" xml:space="preserve">
-                        <p id="feedintro">Please feel free to submit feedback about Pretty Diff at any
-                            time by answering the following questions.</p>
-                        <p class="radiogroup">
-                            <span class="feedlabel">How likely are you to recommend Pretty Diff to a friend or coworker?</span>
-                            <span>
-                                <label class="feedradio1" for="feedradio1">1</label><input id="feedradio1" name="feedradio" type="radio" value="1"/>
-                                <span>Never</span>
-                            </span>
-                            <span>
-                                <label class="feedradio2" for="feedradio2">2</label><input id="feedradio2" name="feedradio" type="radio" value="2"/>
-                                <span>Not Likely</span>
-                            </span>
-                            <span>
-                                <label class="feedradio3" for="feedradio3">3</label><input id="feedradio3" name="feedradio" type="radio" value="3"/>
-                                <span>Rarely</span>
-                            </span>
-                            <span>
-                                <label class="feedradio4" for="feedradio4">4</label><input id="feedradio4" name="feedradio" type="radio" value="4"/>
-                                <span>Maybe</span>
-                            </span>
-                            <span>
-                                <label class="feedradio5" for="feedradio5">5</label><input id="feedradio5" name="feedradio" type="radio" value="5"/>
-                                <span>Probably</span>
-                            </span>
-                            <span>
-                                <label class="feedradio6" for="feedradio6">6</label><input id="feedradio6" name="feedradio" type="radio" value="6"/>
-                                <span>Frequently</span>
-                            </span>
-                            <span>
-                                <label class="feedradio7" for="feedradio7">7</label><input id="feedradio7" name="feedradio" type="radio" value="7"/>
-                                <span>Always</span>
-                            </span>
-                        </p>
-                        <p>
-                            <label for="feedtextarea">What is your primary reason for the above answer?</label>
-                            <textarea id="feedtextarea"></textarea>
-                        </p>
-                        <p>
-                            <label for="feedemail">Email address (optional)</label>
-                            <input id="feedemail" type="text"/></p>
-                        <p>
-                            <button id="feedsubmit" type="button">Submit feedback</button>
-                        </p>
-                    </div>
-            </div>
+
             <div class="box" id="codereport" role="dialog_nonmodal">
                 <h3 class="heading"
                     title="Grab this title element to open this dialogue or move it around the screen.">
@@ -209,6 +75,7 @@
                 </p>
                 <div class="body" id="codereportbody" style="display:none" xml:space="preserve"></div>
             </div>
+
             <div class="box" id="statreport" role="dialog_nonmodal">
                 <h3 class="heading"
                     title="Grab this title element to open this dialogue or move it around the screen.">
@@ -299,14 +166,10 @@
                         </table>
                     </div>
             </div>
-        </div>
-        <div class="options" id="options" role="toolbar">
 
         </div>
     </div>
-
 </div>
-
 
 <script src="lib/global.js" type="application/javascript"></script>
 <script src="lib/language.js" type="application/javascript"></script>
