@@ -1,11 +1,13 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link href="prettydiff/css/index.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="prettydiff/css/report.css" media="all" rel="stylesheet" type="text/css"/>
 
 <dom-module id="stlm-diff">
     <template id="prettydiff">
         <button type="button" onclick="prettyTest()">TESTING...</button>
         <div id="output"></div>
         <script>
+            //gobal={};
             function prettyTest() {
                 var args = {
                     source: "asdf",

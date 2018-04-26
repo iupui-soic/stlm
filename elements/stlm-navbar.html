@@ -210,7 +210,9 @@
                         e.target.parentNode.classList.add('green');
                         localStorage.setItem(e.target.parentNode.id, 'stopped');
                         e.target.parentNode.nextElementSibling.removeAttribute('disabled');
+                        localStorage.setItem(e.target.parentNode.nextElementSibling, 'disabled');
                         e.target.parentNode.nextElementSibling.nextElementSibling.removeAttribute('disabled');
+                        localStorage.setItem(e.target.parentNode.nextElementSibling.nextElementSibling, 'disabled');
                         e.target.parentNode.setAttribute('disabled', 'true');
                         e.target.parentNode.innerHTML = '<iron-icon icon="av:play-circle-outline"></iron-icon>';
                     } else {
