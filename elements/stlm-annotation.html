@@ -19,8 +19,8 @@
         <div id="contextMenu">
             <ul>
                 <li id="annotateThis"></li>
-                <li><input id="annotationField" type="text"/><input type="button" on-click="saveAnnotation"
-                                                                    value="Submit">
+                <li><input id="annotationField" type="text"/>
+                    <input type="button" on-click="saveAnnotation" id="saveButton" value="Submit">
                     <input type="button" on-click="printContent" value="Print all annotations"></li>
             </ul>
         </div>
@@ -70,12 +70,6 @@
                 font-size: 1rem;
             }
         </style>
-        <script>
-
-
-        </script>
-
-
     </template>
 
     <script>
@@ -136,6 +130,7 @@
             }
 
             printContent() {
+                this.saveAnnotation();
                 var data = [];
                 for (var a in localStorage) {
                     if (a.includes('stlm-annotation:')) {
