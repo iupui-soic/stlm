@@ -210,9 +210,7 @@
                         e.target.parentNode.classList.add('green');
                         localStorage.setItem(e.target.parentNode.id, 'stopped');
                         e.target.parentNode.nextElementSibling.removeAttribute('disabled');
-                        localStorage.setItem(e.target.parentNode.nextElementSibling, 'disabled');
                         e.target.parentNode.nextElementSibling.nextElementSibling.removeAttribute('disabled');
-                        localStorage.setItem(e.target.parentNode.nextElementSibling.nextElementSibling, 'disabled');
                         e.target.parentNode.setAttribute('disabled', 'true');
                         e.target.parentNode.innerHTML = '<iron-icon icon="av:play-circle-outline"></iron-icon>';
                     } else {
@@ -242,10 +240,12 @@
             revertRecording(e) {
                 if (null === e.target.nextElementSibling) {
                     e.target.parentNode.previousElementSibling.removeAttribute('disabled');
+                    localStorage.removeItem(e.target.parentNode.previousElementSibling.id);
                     e.target.parentNode.setAttribute('disabled', 'true');
                     e.target.parentNode.nextElementSibling.setAttribute('disabled', 'true');
                 } else {
                     e.target.previousElementSibling.removeAttribute('disabled');
+                    localStorage.removeItem(e.target.previousElementSibling.id);
                     e.target.setAttribute('disabled', 'true');
                     e.target.nextElementSibling.setAttribute('disabled', 'true');
                 }
@@ -265,6 +265,9 @@
                             this.shadowRoot.getElementById(a).classList.add('red');
                             this.shadowRoot.getElementById(a).innerHTML = '<iron-icon icon="av:stop"></iron-icon>';
                         } else if (localStorage.getItem(a) == 'stopped') {
+                            this.shadowRoot.getElementById(a).setAttribute('disabled', 'true');
+                            this.shadowRoot.getElementById(a).nextElementSibling.removeAttribute('disabled');
+                            this.shadowRoot.getElementById(a).nextElementSibling.nextElementSibling.removeAttribute('disabled');
                             this.shadowRoot.getElementById(a).classList.remove('red');
                             this.shadowRoot.getElementById(a).classList.add('green');
                             this.shadowRoot.getElementById(a).innerHTML = '<iron-icon icon="av:play-circle-outline"></iron-icon>';
