@@ -12,7 +12,7 @@
 <link rel="import" href="../bower_components/iron-demo-helpers/demo-pages-shared-styles.html">
 <link rel="import" href="../bower_components/vaadin-upload/vaadin-upload.html">
 <link rel="import" href="collapse-button.html">
-
+<link rel="import" href="stlm-diff.html">
 <link rel="import" href="simple-dialog.html">
 
 <script src="../bower_components/web-animations-js/web-animations-next-lite.min.js"></script>
@@ -98,7 +98,7 @@
                             <paper-button disabled raised class="backbutton" on-tap="revertRecording">
                                 <iron-icon icon="undo"></iron-icon>
                             </paper-button>
-                            <paper-button disabled raised id="comparebutton" class="compare">
+                            <paper-button disabled raised id="comparebutton" class="compare" onclick="document.getElementsByTagName('stlm-diff')[0].prettyTest(this.previousElementSibling.previousElementSibling.id)">
                                 <iron-icon icon="image:compare"></iron-icon>
                             </paper-button>
                         </paper-item>
@@ -109,7 +109,7 @@
                             <paper-button disabled raised class="backbutton" on-tap="revertRecording">
                                 <iron-icon icon="undo"></iron-icon>
                             </paper-button>
-                            <paper-button disabled raised id="comparebutton" class="compare">
+                            <paper-button disabled raised id="comparebutton" class="compare" onclick="document.getElementsByTagName('stlm-diff')[0].prettyTest(this.previousElementSibling.previousElementSibling.id)">
                                 <iron-icon icon="image:compare"></iron-icon>
                             </paper-button>
                         </paper-item>
@@ -123,7 +123,7 @@
                             <paper-button disabled raised class="backbutton" on-tap="revertRecording">
                                 <iron-icon icon="undo"></iron-icon>
                             </paper-button>
-                            <paper-button disabled raised id="comparebutton" class="compare" label="compare">
+                            <paper-button disabled raised id="comparebutton" class="compare" onclick="document.getElementsByTagName('stlm-diff')[0].prettyTest(this.previousElementSibling.previousElementSibling.id)">
                                 <iron-icon icon="image:compare"></iron-icon>
                             </paper-button>
                         </paper-item>
@@ -134,7 +134,7 @@
                             <paper-button disabled raised class="backbutton" on-tap="revertRecording">
                                 <iron-icon icon="undo"></iron-icon>
                             </paper-button>
-                            <paper-button disabled raised id="comparebutton" class="compare" label="compare">
+                            <paper-button disabled raised id="comparebutton" class="compare" onclick="document.getElementsByTagName('stlm-diff')[0].prettyTest(this.previousElementSibling.previousElementSibling.id)">
                                 <iron-icon icon="image:compare"></iron-icon>
                             </paper-button>
                         </paper-item>
@@ -190,7 +190,6 @@
 
             </script>
         </simple-dialog>
-
     </template>
     <script>
         class StlmNavbar extends Polymer.Element {
